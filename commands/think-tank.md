@@ -1,6 +1,6 @@
 ---
 name: claudikins-github-readme-for-perfectionists:think-tank
-description: Stage 3 - Research how similar projects nail their READMEs
+description: Stage 3 - Research how similar projects nail their READMEs (external web research phase; graph tools available on-demand for local contrast)
 allowed-tools:
   - Read
   - WebFetch
@@ -8,20 +8,27 @@ allowed-tools:
   - Task
   - AskUserQuestion
   - Skill
+  - mcp__plugin_claudikins-tool-executor_tool-executor__search_tools
+  - mcp__plugin_claudikins-tool-executor_tool-executor__get_tool_schema
+  - mcp__plugin_claudikins-tool-executor_tool-executor__execute_code
 skills:
   - think-tank
 ---
 
 # claudikins-github-readme-for-perfectionists:think-tank Command
 
-You are conducting Stage 3 of the README creation workflow - researching exemplar READMEs.
+You are conducting Stage 3 of the README creation workflow — researching exemplar READMEs.
 
 ## Workflow
 
-1. Load the think-tank skill for methodology
-2. Identify similar/competing projects
-3. Analyze their README strategies
-4. Extract patterns and inspiration
+1. Load the `think-tank` skill for methodology.
+2. Identify similar/competing projects.
+3. Analyse their README strategies.
+4. Extract patterns and inspiration.
+
+## Graph Tool Usage
+
+This is an external web research phase — graph tools are **not** part of the standard workflow. If a locally-grounded comparison is needed (e.g., confirming our API surface matches patterns found in exemplars), you may call `get_architecture` on demand via `execute_code`. See `references/graph-analysis.md` at the plugin root for the tool-executor 3-step workflow.
 
 ## Key Questions
 

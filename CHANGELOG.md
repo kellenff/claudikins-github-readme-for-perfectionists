@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-05-11
+
+### Added
+
+- **Graph-analysis tool integration** via `claudikins-tool-executor` plugin
+- **`references/graph-analysis.md`**: Shared plugin-wide reference for the 8 codebase-memory graph tools (`search_graph`, `trace_path`, `get_architecture`, `get_code_snippet`, `query_graph`, `search_code`, `index_repository`, `index_status`), the tool-executor 3-step workflow, standard opener sequence, and gotchas
+- **grfp orchestrator**: Phase 0 graph-index check (`index_status` → auto-index → graceful fallback) runs once before any codebase-analysis phase, amortising indexing cost across the pipeline
+- **deep-dive skill**: Workflow rewritten to use `get_architecture` for architectural overview, `search_graph` (with `max_degree: 0`) for semantic entry-point detection, `trace_path` for "main flow" reconstruction, and `get_code_snippet` for reading source of graph-identified symbols; filename-heuristic table retained as fallback
+- **crystal-ball skill**: Workflow rewritten with graph-based dead-code detection (orphaned-symbol queries), complexity hotspot identification (fan-in/fan-out via `min_degree`), deprecated-API caller enumeration, and attack-surface tracing from public entry points
+- **pen-wielding skill**: Optional architecture diagram step in Visual Engineering — calls `get_architecture` and converts result to Mermaid flowchart syntax for the README
+- **brain-jam and think-tank skills**: Reference link to shared graph-analysis docs for on-demand architectural queries during voice-strategy and external-research phases (no workflow changes)
+- All 6 command frontmatters updated with `mcp__plugin_claudikins-tool-executor_tool-executor__*` allowed-tools entries
+
+### Changed
+
+- All skills now document a graceful-degradation path: if `claudikins-tool-executor` is not installed or indexing fails, skills fall back to existing Read/Glob/Grep behaviour with a single user warning
+- README requirements section now describes graph-analysis capability alongside Gemini integration
+
+---
+
 ## [1.1.1] - 2026-01-20
 
 ### Fixed

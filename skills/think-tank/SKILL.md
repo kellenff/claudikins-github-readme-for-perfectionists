@@ -15,6 +15,8 @@ Read the governance files:
 2. `references/badge-ecosystem.md` (Which badges signal what).
 3. `references/gemini-deep-research.md` (How to execute Gemini deep research).
 
+> **Graph tools:** This phase researches external exemplar repositories on the web. Graph tools are not part of the standard workflow here. See `references/graph-analysis.md` at the plugin root if a locally-grounded contrast (e.g., "how does our API surface compare to these exemplars?") is needed.
+
 ---
 
 ## Step 2: Define Search Criteria

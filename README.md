@@ -206,9 +206,9 @@ If any of these appear in the output, the README fails its own rules.
 ## Requirements
 
 - Claude Code 1.0+
-- claudikins-tool-executor (recommended for Gemini integration)
+- claudikins-tool-executor (recommended for Gemini integration and graph-analysis tools)
 
-Without tool-executor, brain-jam runs as a conversation with you instead of Claude + Gemini collaboration.
+Without tool-executor, brain-jam runs as a conversation with you instead of Claude + Gemini collaboration. With tool-executor installed, `/deep-dive` and `/crystal-ball` use semantic graph-analysis tools (`search_graph`, `trace_path`, `get_architecture`) to map entry points, detect dead code, and analyse complexity — falling back to file-based heuristics if unavailable. See `references/graph-analysis.md` for the tool catalogue.
 
 ## License
 

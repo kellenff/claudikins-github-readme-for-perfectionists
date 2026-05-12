@@ -1,6 +1,6 @@
 {
   "name": "claudikins-grfp",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Five rituals for README perfection: /deep-dive the codebase, /crystal-ball the roadmap, /brain-jam with Gemini, enter the /think-tank, then /pen-wielding to write.",
   "author": {
     "name": "elb-pr",
@@ -9,5 +9,12 @@
   "homepage": "https://github.com/elb-pr/claudikins-github-readme-for-perfectionists",
   "repository": "https://github.com/elb-pr/claudikins-github-readme-for-perfectionists",
   "license": "MIT",
-  "keywords": ["claude-code", "readme", "documentation", "github", "gemini", "claudikins"]
+  "keywords": [
+    "claude-code",
+    "readme",
+    "documentation",
+    "github",
+    "gemini",
+    "claudikins"
+  ]
 }

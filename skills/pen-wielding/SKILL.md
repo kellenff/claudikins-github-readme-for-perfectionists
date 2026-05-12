@@ -1,6 +1,6 @@
 ---
 name: pen-wielding
-description: "Use when writing the final README after all phases complete. Synthesises outputs from deep-dive, crystal-ball, brain-jam, and think-tank. Applies Anti-Slop style guide."
+description: "Use when writing the final README after all phases complete. Synthesises outputs from deep-dive, crystal-ball, brain-jam, and think-tank. Applies Anti-Slop style guide. Uses get_architecture graph tool to auto-generate Mermaid architecture diagrams."
 ---
 
 # Pen-Wielding Protocol
@@ -179,6 +179,29 @@ flowchart LR
 A[Input] --> B[Process] --> C[Output]
 \`\`\`
 ```
+
+### Graph-Derived Architecture Diagrams (Optional)
+
+When `claudikins-tool-executor` is available and the codebase was indexed in Phase 0, use `get_architecture` to auto-generate a Mermaid module map instead of writing it by hand:
+
+```typescript
+await execute_code(`
+  const arch = await serena.get_architecture({
+    aspects: ["packages", "services", "entry_points"]
+  });
+
+  // Convert to Mermaid flowchart
+  const nodes = arch.packages?.map(p => \`  \${p.id}[\${p.name}]\`).join("\\n") ?? "";
+  const edges = arch.dependencies?.map(d => \`  \${d.from} --> \${d.to}\`).join("\\n") ?? "";
+  const diagram = \`flowchart LR\\n\${nodes}\\n\${edges}\`;
+
+  await workspace.writeJSON("pen-wielding/arch-diagram.json", { arch, diagram });
+`);
+```
+
+Then embed the generated `diagram` string in the README's Mermaid block. If graph tools are unavailable, hand-write the diagram from the `deep-dive` Reality Report.
+
+**See `references/graph-analysis.md` at the plugin root for the tool-executor workflow and `get_architecture` parameter details.**
 
 ### Visual Placeholders
 
