@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-05-26
+
+### Changed
+
+- **BREAKING — brain-jam engine swap**: Stage 4 (`brain-jam`) now delegates to `m2-brainstorm:readme-brain-jam` (MiniMax-M2.7-highspeed) instead of running a Gemini brainstorm via `claudikins-tool-executor`. Users must enable `m2-brainstorm@m2-deep-research` for the pipeline to complete; the skill prints a one-line installation hint if the plugin is unavailable.
+- `skills/brain-jam/SKILL.md` rewritten as a thin adapter — validates GRFP staging files, computes a transcript path under `.claude/grfp/`, and delegates the conversation to the downstream skill. The orchestrator (`skills/grfp/SKILL.md`) and Phase 3 state machine are unchanged; the skill name `brain-jam` is preserved so existing pipeline wiring still works
+- `commands/brain-jam.md` description updated to reflect the MiniMax engine
+- Brainstorm transcripts now land in `.claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json` alongside other GRFP staging artifacts (overriding the downstream skill's default of `./.brainstorm/…`)
+- `plugin.json` description and keywords updated to reflect the MiniMax engine (`gemini` keyword replaced with `minimax`)
+
+### Deprecated
+
+- `skills/brain-jam/references/brainstorm-gemini.md` — kept as historical reference with a deprecation banner; no longer part of the active workflow
+
+### Migration
+
+Enable the new brainstorm engine before running Stage 4:
+
+```
+/plugin → enable m2-brainstorm@m2-deep-research
+```
+
+The legacy Gemini path was already non-functional whenever `claudikins-tool-executor` was disabled; this release replaces the engine entirely.
+
+Design spec: `docs/snowball/specs/2026-05-25-brain-jam-swap-design.md`
+Implementation plan: `docs/snowball/plans/2026-05-25-brain-jam-swap.md`
+
+---
+
 ## [1.2.0] - 2026-05-11
 
 ### Added

@@ -1,99 +1,72 @@
 ---
 name: brain-jam
-description: "Use when determining project tone, voice, and marketing angle after deep-dive and crystal-ball phases. Conducts brainstorming session with Gemini."
+description: "Use when determining project tone, voice, and marketing angle after deep-dive and crystal-ball phases. Delegates to m2-brainstorm:readme-brain-jam (MiniMax-M2.7-highspeed)."
 ---
 
-# The Brain-Jam
+# The Brain-Jam (GRFP adapter)
 
-"Time for a brain-jam with Gemini..."
+Stage 4 of the GRFP pipeline. This skill is a **thin adapter**: it validates GRFP staging files, pre-instructs an output-path override, then delegates the actual brainstorm to `m2-brainstorm:readme-brain-jam`.
 
-## The Dynamic
-
-**You (Claude):** Senior dev who appreciates elegant engineering. Technical enthusiasm grounded in real value.
-
-**Gemini:** The pragmatist focused on what devs actually need. Skeptical of hype.
-
-Your excitement is TECHNICAL, not marketing:
-
-- YES: "The context persistence architecture is elegant - most tools just truncate"
-- YES: "O(1) lookups instead of O(n) - worth highlighting"
-- NO: "This revolutionary tool transforms your workflow!"
+The downstream engine runs MiniMax-M2.7-highspeed via `uv run python brainstorm.py`. It already knows about GRFP staging files, writes synthesis to `.claude/grfp/brain-jam.md`, and prompts for `/claudikins-github-readme-for-perfectionists:pen-wielding` at handoff. Do not duplicate that work here.
 
 ---
 
-## Step 1: Load Context
+## Step 1: Verify GRFP staging files
 
-1. Read `references/brainstorm-gemini.md` for execution details
-2. Ingest **Deep Dive Findings** (What are we building?)
-3. Ingest **Crystal Ball Roadmap** (What are the cool features/gaps?)
+Both files must exist in the current working directory:
 
-> **Graph tools:** This phase focuses on voice and strategy, not codebase introspection. Graph tools are not part of the standard workflow here. If an architectural question arises mid-jam (e.g., "what's the module structure?"), you may query `get_architecture` on demand via the tool-executor. See `references/graph-analysis.md` at the plugin root for the 3-step workflow.
+- `.claude/grfp/deep-dive.md`
+- `.claude/grfp/crystal-ball.md`
+
+If `deep-dive.md` is missing, halt with:
+
+> Missing deep-dive output. Run /deep-dive first.
+
+If `crystal-ball.md` is missing, halt with:
+
+> Missing crystal-ball output. Run /crystal-ball first.
+
+Do not attempt to improvise context or skip these checks.
 
 ---
 
-## Step 2: The Sound Check
+## Step 2: Verify the m2-brainstorm plugin is available
 
-Ask the user these 3 targeting questions to fuel the conversation:
+*(This step defines the halt response if the m2-brainstorm plugin is unavailable. The actual detection happens during the Skill tool invocation in Step 3.)*
 
-1. **The "Killer" Feature:** What implementation detail are you proudest of?
-2. **The "Pain" Point:** What 2 AM frustration does this solve?
-3. **The Vibe:** Do you want "Technical Clarity" or "Organised Chaos"?
+This skill delegates to `m2-brainstorm:readme-brain-jam`. If the Skill tool returns "skill not found" or an equivalent unavailable-skill error, halt with:
+
+> m2-brainstorm plugin not enabled. Run /plugin → enable m2-brainstorm@m2-deep-research, then retry /brain-jam.
+
+Do NOT attempt to edit `~/.claude/settings.json` automatically. Plugin enablement is user-driven.
 
 ---
 
-## Step 3: The Jam
+## Step 3: Delegation contract — invoke readme-brain-jam with an output override
 
-**A brain-jam is a CONVERSATION, not a query.** Minimum 3 turns.
+Compute the timestamp NOW (before invoking the Skill tool): run `date +%Y%m%dT%H%M%S` via the Bash tool. For example, a run at 2:23pm on 25 May 2026 yields `20260525T142300`. The full transcript path is then `.claude/grfp/brainstorm-transcript-20260525T142300.json` (substitute your computed timestamp).
 
-### Anti-Pattern (Don't Do This)
+The locked-in transcript path format is:
 
 ```
-Claude: "Give me ideas" -> Gemini: "Wall of text" -> Done
+.claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json
 ```
 
-### What a Real Jam Looks Like
+When you execute the downstream `readme-brain-jam` skill's `uv run python brainstorm.py …` CLI invocation step, you MUST substitute the `--output` value with the path you computed above. **Do not use the downstream skill's default of `./.brainstorm/readme-angle-…`.** This is a hard requirement, not a suggestion — **GRFP staging artifacts must live under `.claude/grfp/`**.
 
-| Turn | Purpose                       | Example                                                                              |
-| ---- | ----------------------------- | ------------------------------------------------------------------------------------ |
-| 1    | Open with your technical take | "I'm seeing [X] as the core value. What's your read?"                                |
-| 2    | Build on their response       | "Interesting point about [Y]. What if we combined that with [Z]?"                    |
-| 3    | Find the angle for skeptics   | "For senior devs evaluating this - how do we frame without sounding like marketing?" |
+Everything else is the downstream skill's responsibility:
 
-Continue until you have a solid angle. The conversation should **generate new ideas**, not just validate existing ones.
+- The three-question Sound Check
+- Reading `.claude/grfp/deep-dive.md` and `.claude/grfp/crystal-ball.md` to build `--claude-thoughts`
+- Running the MiniMax CLI
+- Reading the transcript and synthesising
+- Writing `.claude/grfp/brain-jam.md`
+- Prompting the user for `/claudikins-github-readme-for-perfectionists:pen-wielding`
 
----
-
-## Step 4: The Set List (Options)
-
-Based on the debate, present 3 distinct angles:
-
-> **Option 1: The "Deep Tech" Angle**
-> _Headline Idea:_ [Technical & Precise]
-> _Focus:_ Architectural authority, implementation elegance
->
-> **Option 2: The "Pragmatic Solver" Angle**
-> _Headline Idea:_ [Direct benefit statement]
-> _Focus:_ Time-to-Joy, problem solved
->
-> **Option 3: The Synthesis (Recommended)**
-> _Headline Idea:_ [Hybrid - emerged from conversation]
-> _Tone:_ The sweet spot neither of you had alone
+If the MiniMax CLI fails (network, API key, missing `uv`, missing `brainstorm.py`), let the downstream skill surface the error. Do not wrap, retry, or swallow it.
 
 ---
 
-## Quality Test
+## Step 4: Handoff
 
-**The synthesis MUST contain ideas NEITHER Claude nor Gemini had alone.**
-
-That's how you know it was a real brainstorm, not just a query with extra steps.
-
-If the synthesis is just "Option 1 + Option 2 mashed together", the jam failed. Go another round.
-
----
-
-## Handoff
-
-1. **Ask:** "Which track feels right? Or should we mix them?"
-2. **Transition:**
-   - If refine -> more brainstorming
-   - If chosen -> **"Proceeding to `think-tank` to find visual and structural patterns."**
+`readme-brain-jam` already ends by prompting for `/claudikins-github-readme-for-perfectionists:pen-wielding`. Once delegation returns, this adapter is done — do not re-prompt or duplicate the handoff.
