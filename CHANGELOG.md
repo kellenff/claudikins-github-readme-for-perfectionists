@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `skills/brain-jam/SKILL.md` rewritten as a thin adapter — validates GRFP staging files, computes a transcript path under `.claude/grfp/`, and delegates the conversation to the downstream skill. The orchestrator (`skills/grfp/SKILL.md`) and Phase 3 state machine are unchanged; the skill name `brain-jam` is preserved so existing pipeline wiring still works
 - `commands/brain-jam.md` description updated to reflect the MiniMax engine
 - Brainstorm transcripts now land in `.claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json` alongside other GRFP staging artifacts (overriding the downstream skill's default of `./.brainstorm/…`)
+- `plugin.json` description and keywords updated to reflect the MiniMax engine (`gemini` keyword replaced with `minimax`)
 
 ### Deprecated
 
