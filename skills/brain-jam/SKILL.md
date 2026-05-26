@@ -32,7 +32,9 @@ Do not attempt to improvise context or skip these checks.
 
 ## Step 2: Verify the m2-brainstorm plugin is available
 
-This skill delegates to `m2-brainstorm:readme-brain-jam`. If the Skill tool returns "skill not found" or an equivalent unavailable-skill error when you attempt to invoke it in Step 3, halt with:
+*(This step defines the halt response if the m2-brainstorm plugin is unavailable. The actual detection happens during the Skill tool invocation in Step 3.)*
+
+This skill delegates to `m2-brainstorm:readme-brain-jam`. If the Skill tool returns "skill not found" or an equivalent unavailable-skill error, halt with:
 
 > m2-brainstorm plugin not enabled. Run /plugin → enable m2-brainstorm@m2-deep-research, then retry /brain-jam.
 
@@ -42,13 +44,15 @@ Do NOT attempt to edit `~/.claude/settings.json` automatically. Plugin enablemen
 
 ## Step 3: Delegation contract — invoke readme-brain-jam with an output override
 
-Before invoking the downstream skill, lock in the transcript path. Compute an ISO8601 timestamp now and use it for the override:
+Compute the timestamp NOW (before invoking the Skill tool): run `date +%Y%m%dT%H%M%S` via the Bash tool. For example, a run at 2:23pm on 25 May 2026 yields `20260525T142300`. The full transcript path is then `.claude/grfp/brainstorm-transcript-20260525T142300.json` (substitute your computed timestamp).
+
+The locked-in transcript path format is:
 
 ```
 .claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json
 ```
 
-When you invoke `m2-brainstorm:readme-brain-jam` via the Skill tool, you MUST instruct the downstream execution to use that exact path for its `--output` flag in step 4 of `readme-brain-jam`. The readme-brain-jam default of `./.brainstorm/readme-angle-<timestamp>.json` is NOT acceptable for GRFP — staging artifacts must live under `.claude/grfp/`.
+When you execute the downstream `readme-brain-jam` skill's `uv run python brainstorm.py …` CLI invocation step, you MUST substitute the `--output` value with the path you computed above. **Do not use the downstream skill's default of `./.brainstorm/readme-angle-…`.** This is a hard requirement, not a suggestion — **GRFP staging artifacts must live under `.claude/grfp/`**.
 
 Everything else is the downstream skill's responsibility:
 
