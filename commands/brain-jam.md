@@ -1,6 +1,6 @@
 ---
 name: claudikins-github-readme-for-perfectionists:brain-jam
-description: Stage 4 - Collaborate with Gemini to find the perfect README angle (voice/strategy phase; graph tools available on-demand for architectural questions)
+description: Stage 4 - Collaborate with MiniMax (via m2-brainstorm) to find the perfect README angle (voice/strategy phase; graph tools available on-demand for architectural questions)
 allowed-tools:
   - Read
   - Task
