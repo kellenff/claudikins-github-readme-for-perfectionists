@@ -75,6 +75,144 @@ If the MiniMax CLI fails (network, API key, missing binary), let the downstream 
 
 ---
 
-## Step 4: Handoff
+## Step 4: Read transcript and render brain-jam.md
 
-`readme-brain-jam` already ends by prompting for `/claudikins-github-readme-for-perfectionists:pen-wielding`. Once delegation returns, this adapter is done — do not re-prompt or duplicate the handoff.
+When the downstream CLI returns with exit code 0, the transcript JSON exists at the path you computed in Step 3. Read it with the Read tool.
+
+### Step 4.1: Parse and validate transcript shape
+
+The transcript JSON must contain:
+
+- `turns`: array of turn objects, each with `round`, `speaker`, and content fields
+- `synthesis_hint`: string (used as a synthesis seed)
+- `critique_aggregate`: object (present when `--critique` was passed)
+
+If any of these top-level fields are missing, halt with:
+
+> Transcript shape invalid: <field> missing. The m2-brainstorm engine may have changed contract. Run `/m2-brainstorm:readme-brain-jam` directly to verify, then report upstream.
+
+This is the Layer 3 defensive halt. Do not attempt to render a partial file.
+
+### Step 4.2: Classify critic status
+
+Iterate `turns` filtering by `speaker == "critic"`. Each critic turn has a `status` field of `"ok"` or `"unavailable"`.
+
+- If **all** critic turns have `status == "ok"`, set rendering mode to **FULL**.
+- If **some** critic turns are `"ok"` and **some** are `"unavailable"`, set rendering mode to **PARTIAL**.
+- If **all** critic turns have `status == "unavailable"`, set rendering mode to **NO-CRITIQUE**.
+
+### Step 4.3: Render brain-jam.md based on mode
+
+Write the rendered markdown to `.claude/grfp/brain-jam.md` using the Write tool. The file always starts with Block 1 (Set List). Blocks 2-4 depend on mode.
+
+#### Block 1 — Set List (always rendered)
+
+Synthesize three angles from the dialogue. Each angle cites the turns it emerged from; the synthesis option may cite a `critic_rN` turn when the critic's steelman influenced it. Template:
+
+````markdown
+## Set List
+
+**Option 1: The "Deep Tech" Angle**
+_Headline Idea:_ <one sentence>
+_Focus:_ <one sentence>
+_Cited from:_ <comma-separated turn ids like claude_r2, pragmatist_r3>
+
+**Option 2: The "Pragmatic Solver" Angle**
+_Headline Idea:_ <one sentence>
+_Focus:_ <one sentence>
+_Cited from:_ <comma-separated turn ids>
+
+**Option 3: The Synthesis (Recommended)**
+_Headline Idea:_ <one sentence>
+_Tone:_ <one sentence>
+_Cited from:_ <comma-separated turn ids; may include critic_rN>
+````
+
+**Quality test:** Option 3 must reference at least one idea that appears in the transcript but is in neither Option 1 nor Option 2.
+
+#### Block 2 — Watch-Outs (FULL or PARTIAL mode only)
+
+Aggregate `anti_steelman` fields from all `status == "ok"` critic turns. Group by speaker; preserve round order.
+
+````markdown
+## Watch-Outs (anti-steelman per voice)
+
+**Where the "deep tech" voice was weakest:**
+- Round 1: "<anti_steelman.claude verbatim>"
+- Round 2: "<anti_steelman.claude verbatim>"
+- ... (one bullet per critic turn that has the claude anti-steelman)
+
+**Where the "pragmatist" voice was weakest:**
+- Round 1: "<anti_steelman.pragmatist verbatim>"
+- Round 2: "<anti_steelman.pragmatist verbatim>"
+- ... (one bullet per critic turn that has the pragmatist anti-steelman)
+````
+
+In **PARTIAL** mode, append this footnote line at the end of Block 2:
+
+> *Critic was unavailable for round(s) <comma-separated round numbers>. Coverage is partial.*
+
+#### Block 3 — Undefended Assumptions (FULL or PARTIAL mode only)
+
+Aggregate `assumptions[].premise` where `argued_for == false`, across all `status == "ok"` critic turns. Deduplicate by case-insensitive string match; preserve first-occurrence order.
+
+````markdown
+## Undefended Assumptions
+
+Consider the following hidden assumptions in the research:
+
+- (claude) "<premise>"
+- (pragmatist) "<premise>"
+- ... (one bullet per unique undefended premise, prefixed with speaker)
+````
+
+In **PARTIAL** mode, append this footnote line at the end of Block 3:
+
+> *Critic was unavailable for round(s) <comma-separated round numbers>. Coverage is partial.*
+
+#### Block 4 — Argument Map (FULL or PARTIAL mode only)
+
+Use the **last** `status == "ok"` critic turn's `argdown` source. In FULL mode this is the final round; in PARTIAL mode it may be an earlier round.
+
+````markdown
+## Argument Map (round N — final critic-ok round)
+
+```argdown
+<argdown source verbatim from critic_rN.argdown>
+```
+
+**Surviving arguments (IN):** <comma-separated argument labels from dung_extension.in>
+**Defeated arguments (OUT):** <comma-separated argument labels from dung_extension.out>
+**Undecided (UNDEC):** <comma-separated labels from dung_extension.undec, or "_(none)_">
+````
+
+In **FULL** mode, the heading is `## Argument Map (round N)` where N is the final round.
+In **PARTIAL** mode, the heading is `## Argument Map (round N — final critic-ok round)`.
+
+#### NO-CRITIQUE mode replacement
+
+In **NO-CRITIQUE** mode, skip Blocks 2, 3, and 4 entirely. Append this single block after Block 1:
+
+````markdown
+## Critique unavailable
+
+The critic didn't return any output. This is NOT a terminating error.
+
+Errors were: round 1: <error from critic_r1.error>; round 2: <error from critic_r2.error>; round 3: <error from critic_r3.error>.
+````
+
+(Substitute the actual per-round errors from each critic turn's `error` field.)
+
+### Step 4.4: Confirm file written
+
+Run `ls -la .claude/grfp/brain-jam.md` via the Bash tool to confirm the file exists. Do not Read it back unless rendering failed.
+
+---
+
+## Step 5: Handoff
+
+The adapter has written `.claude/grfp/brain-jam.md` itself in Step 4. Do NOT re-invoke any rendering. Prompt the user:
+
+> brain-jam.md written to .claude/grfp/. Next stage: run `/claudikins-github-readme-for-perfectionists:pen-wielding`.
+
+This adapter is done.
