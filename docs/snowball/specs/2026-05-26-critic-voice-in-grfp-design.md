@@ -169,13 +169,7 @@ Aggregate of `assumptions[].premise` where `argued_for == false`, across all `st
 ```markdown
 ## Undefended Assumptions
 
-<!-- USER: write Block 3 header text here (2-3 lines).
-
-The header sits between the "## Undefended Assumptions" heading and the bullet list.
-It frames how pen-wielding should treat these premises. Tone-shaping choice:
-clinical ("must verify") vs cautionary ("watch out for") vs neutral ("notice these").
-
-Your phrasing here ships verbatim. -->
+Consider the following hidden assumptions in the research:
 
 - (claude) "<premise>"
 - (pragmatist) "<premise>"
@@ -241,16 +235,7 @@ The engine never aborts the dialogue on a sentinel — it just continues without
   ```markdown
   ## Critique unavailable
 
-  <!-- USER: write the 'all critic unavailable' message here (~3 lines).
-
-  This message must convey two things at once:
-    (1) this is NOT a pipeline failure — the dialogue ran fine;
-    (2) pen-wielding should know it's writing without the third-voice safety net.
-
-  Include the per-round errors at the end of your message:
-    "Errors were: round 1: <error>; round 2: <error>; round 3: <error>."
-
-  Your phrasing here ships verbatim. -->
+  The critic didn't return any output. This is NOT a terminating error. 
   ```
 
   This is a *successful* run from GRFP's perspective — the dialogue completed, just without the third voice. Do not halt.
