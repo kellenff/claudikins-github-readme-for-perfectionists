@@ -68,7 +68,7 @@ Everything else is the downstream skill's responsibility:
 
 - The three-question Sound Check
 - Reading `.claude/grfp/deep-dive.md` and `.claude/grfp/crystal-ball.md` to build `--claude-thoughts`
-- Running the MiniMax CLI with the four flags above
+- Running the MiniMax CLI with the locked overrides above plus its own `--prompt`, `--claude-thoughts`, and `--max-rounds` arguments
 - Returning the transcript path
 
 If the MiniMax CLI fails (network, API key, missing binary), let the downstream skill surface the error. Do not wrap, retry, or swallow it.
