@@ -42,9 +42,9 @@ Do NOT attempt to edit `~/.claude/settings.json` automatically. Plugin enablemen
 
 ---
 
-## Step 3: Delegation contract — invoke readme-brain-jam with an output override
+## Step 3: Delegation contract — invoke readme-brain-jam with locked overrides
 
-Compute the timestamp NOW (before invoking the Skill tool): run `date +%Y%m%dT%H%M%S` via the Bash tool. For example, a run at 2:23pm on 25 May 2026 yields `20260525T142300`. The full transcript path is then `.claude/grfp/brainstorm-transcript-20260525T142300.json` (substitute your computed timestamp).
+Compute the timestamp NOW (before invoking the Skill tool): run `date +%Y%m%dT%H%M%S` via the Bash tool. For example, a run at 2:23pm on 26 May 2026 yields `20260526T142300`. The full transcript path is then `.claude/grfp/brainstorm-transcript-20260526T142300.json` (substitute your computed timestamp).
 
 The locked-in transcript path format is:
 
@@ -52,18 +52,26 @@ The locked-in transcript path format is:
 .claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json
 ```
 
-When you execute the downstream `readme-brain-jam` skill's `uv run python brainstorm.py …` CLI invocation step, you MUST substitute the `--output` value with the path you computed above. **Do not use the downstream skill's default of `./.brainstorm/readme-angle-…`.** This is a hard requirement, not a suggestion — **GRFP staging artifacts must live under `.claude/grfp/`**.
+**Required overrides when invoking `m2-brainstorm:readme-brain-jam`:**
+
+| Flag                   | Value                                                  | Why locked                                                              |
+| ---------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------- |
+| `--output`             | `.claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json` | GRFP staging artifacts must live under `.claude/grfp/`.             |
+| `--critique`           | (flag-only, no value)                                  | GRFP always uses the third voice. Users who want the cheaper two-voice dialogue can invoke `/m2-brainstorm:readme-brain-jam` directly. |
+| `--critic-temperature` | `0.3`                                                  | Matches m2-brainstorm spec default; analytical extraction favors deterministic output over creative variation. |
+
+**Required behavior override:**
+
+When reading the downstream `readme-brain-jam` skill, treat its Step 6 (Set List synthesis) and Step 7 (write `brain-jam.md`, prompt for `/pen-wielding`) as overridden. Stop following downstream instructions after the CLI returns; this adapter's Step 4 performs the equivalent work with critique-aware rendering.
 
 Everything else is the downstream skill's responsibility:
 
 - The three-question Sound Check
 - Reading `.claude/grfp/deep-dive.md` and `.claude/grfp/crystal-ball.md` to build `--claude-thoughts`
-- Running the MiniMax CLI
-- Reading the transcript and synthesising
-- Writing `.claude/grfp/brain-jam.md`
-- Prompting the user for `/claudikins-github-readme-for-perfectionists:pen-wielding`
+- Running the MiniMax CLI with the four flags above
+- Returning the transcript path
 
-If the MiniMax CLI fails (network, API key, missing `uv`, missing `brainstorm.py`), let the downstream skill surface the error. Do not wrap, retry, or swallow it.
+If the MiniMax CLI fails (network, API key, missing binary), let the downstream skill surface the error. Do not wrap, retry, or swallow it.
 
 ---
 
