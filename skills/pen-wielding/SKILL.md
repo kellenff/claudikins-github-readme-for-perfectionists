@@ -290,6 +290,8 @@ Insert specific placeholders for visuals identified in `think-tank`:
 - [ ] Voice is consistent throughout
 - [ ] Marketing angle applied to hero section and description
 - [ ] Target audience language used appropriately
+- [ ] Undefended assumptions from brain-jam.md are either substantiated or absent from the README
+- [ ] No README claim aligns with an OUT argument from the argument map
 
 ### Think-Tank Verification
 
