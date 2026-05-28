@@ -13,7 +13,7 @@ Read the outputs from the preparatory skills:
 
 1. **Facts:** `deep-dive` report (Stack, friction points, install complexity)
 2. **Future:** `crystal-ball` analysis (Roadmap table, technical debt)
-3. **Voice:** `brain-jam` decision (The chosen angle: Deep Tech vs Pragmatic)
+3. **Voice + Watch-Outs:** `brain-jam` decision (chosen angle, anti-steelman watch-outs, undefended assumptions, and argument map)
 4. **Plan:** `think-tank` findings (Selected badges, sections, and visual strategy)
 
 **Do not proceed until all four reports are available.**
