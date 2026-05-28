@@ -13,7 +13,7 @@ Read the outputs from the preparatory skills:
 
 1. **Facts:** `deep-dive` report (Stack, friction points, install complexity)
 2. **Future:** `crystal-ball` analysis (Roadmap table, technical debt)
-3. **Voice:** `brain-jam` decision (The chosen angle: Deep Tech vs Pragmatic)
+3. **Voice + Watch-Outs:** `brain-jam` decision (chosen angle, anti-steelman watch-outs, undefended assumptions, and argument map)
 4. **Plan:** `think-tank` findings (Selected badges, sections, and visual strategy)
 
 **Do not proceed until all four reports are available.**
@@ -58,6 +58,22 @@ Pick one and stick to it:
 
 - **British:** colour, optimise, analyse, behaviour, centre, finalising
 - **American:** color, optimize, analyze, behavior, center, finalizing
+
+---
+
+## Step 3.5: Pre-write critique check
+
+Before writing any section, scan `brain-jam.md` for the three NEW blocks:
+
+1. **Watch-Outs (anti-steelman):** the weakest claims each voice made during the dialogue.
+   Be aware as you write — these are the angles a hostile reader would attack first.
+2. **Undefended Assumptions:** premises the dialogue relied on without arguing for them.
+   For each one, either find supporting evidence in `deep-dive.md`, or avoid the claim entirely.
+3. **Argument Map:** the final round's argument structure. Arguments in the IN set survived
+   the dialogue's own scrutiny; OUT arguments did not. Prefer claims aligned with IN arguments.
+
+If `brain-jam.md` shows "Critique unavailable", proceed normally — the dialogue produced
+useful angles even without third-voice moderation.
 
 ---
 
@@ -274,6 +290,8 @@ Insert specific placeholders for visuals identified in `think-tank`:
 - [ ] Voice is consistent throughout
 - [ ] Marketing angle applied to hero section and description
 - [ ] Target audience language used appropriately
+- [ ] Undefended assumptions from brain-jam.md are either substantiated or absent from the README
+- [ ] No README claim aligns with an OUT argument from the argument map
 
 ### Think-Tank Verification
 
