@@ -61,6 +61,22 @@ Pick one and stick to it:
 
 ---
 
+## Step 3.5: Pre-write critique check
+
+Before writing any section, scan `brain-jam.md` for the three NEW blocks:
+
+1. **Watch-Outs (anti-steelman):** the weakest claims each voice made during the dialogue.
+   Be aware as you write — these are the angles a hostile reader would attack first.
+2. **Undefended Assumptions:** premises the dialogue relied on without arguing for them.
+   For each one, either find supporting evidence in `deep-dive.md`, or avoid the claim entirely.
+3. **Argument Map:** the final round's argument structure. Arguments in the IN set survived
+   the dialogue's own scrutiny; OUT arguments did not. Prefer claims aligned with IN arguments.
+
+If `brain-jam.md` shows "Critique unavailable", proceed normally — the dialogue produced
+useful angles even without third-voice moderation.
+
+---
+
 ## Step 4: Section Templates
 
 Write sections in this order:
