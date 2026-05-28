@@ -7,7 +7,7 @@ description: "Use when determining project tone, voice, and marketing angle afte
 
 Stage 4 of the GRFP pipeline. This skill is a **thin adapter**: it validates GRFP staging files, pre-instructs an output-path override, then delegates the actual brainstorm to `m2-brainstorm:readme-brain-jam`.
 
-The downstream engine runs MiniMax-M2.7-highspeed via `uv run python brainstorm.py`. It already knows about GRFP staging files, writes synthesis to `.claude/grfp/brain-jam.md`, and prompts for `/claudikins-github-readme-for-perfectionists:pen-wielding` at handoff. Do not duplicate that work here.
+The downstream engine runs MiniMax-M2.7-highspeed. It knows about GRFP staging files and writes the transcript JSON to the path the adapter computes. This adapter takes over the synthesis-and-write step: it reads the transcript, renders the critique-aware `.claude/grfp/brain-jam.md`, and prompts for `/claudikins-github-readme-for-perfectionists:pen-wielding` itself.
 
 ---
 
@@ -85,7 +85,7 @@ The transcript JSON must contain:
 
 - `turns`: array of turn objects, each with `round`, `speaker`, and content fields
 - `synthesis_hint`: string (used as a synthesis seed)
-- `critique_aggregate`: object (present when `--critique` was passed)
+- `critique_aggregate`: object — always required (the adapter unconditionally passes `--critique`)
 
 If any of these top-level fields are missing, halt with:
 
@@ -174,7 +174,23 @@ In **PARTIAL** mode, append this footnote line at the end of Block 3:
 
 Use the **last** `status == "ok"` critic turn's `argdown` source. In FULL mode this is the final round; in PARTIAL mode it may be an earlier round.
 
-````markdown
+**FULL mode template:**
+
+`````markdown
+## Argument Map (round N)
+
+```argdown
+<argdown source verbatim from critic_rN.argdown>
+```
+
+**Surviving arguments (IN):** <comma-separated argument labels from dung_extension.in>
+**Defeated arguments (OUT):** <comma-separated argument labels from dung_extension.out>
+**Undecided (UNDEC):** <comma-separated labels from dung_extension.undec, or "_(none)_">
+`````
+
+**PARTIAL mode template:**
+
+`````markdown
 ## Argument Map (round N — final critic-ok round)
 
 ```argdown
@@ -184,10 +200,9 @@ Use the **last** `status == "ok"` critic turn's `argdown` source. In FULL mode t
 **Surviving arguments (IN):** <comma-separated argument labels from dung_extension.in>
 **Defeated arguments (OUT):** <comma-separated argument labels from dung_extension.out>
 **Undecided (UNDEC):** <comma-separated labels from dung_extension.undec, or "_(none)_">
-````
+`````
 
-In **FULL** mode, the heading is `## Argument Map (round N)` where N is the final round.
-In **PARTIAL** mode, the heading is `## Argument Map (round N — final critic-ok round)`.
+Substitute `N` with the actual round number.
 
 #### NO-CRITIQUE mode replacement
 
@@ -198,7 +213,7 @@ In **NO-CRITIQUE** mode, skip Blocks 2, 3, and 4 entirely. Append this single bl
 
 The critic didn't return any output. This is NOT a terminating error.
 
-Errors were: round 1: <error from critic_r1.error>; round 2: <error from critic_r2.error>; round 3: <error from critic_r3.error>.
+Errors were: <semicolon-separated, one entry per critic turn formatted as "round N: \<error from critic_rN.error\>">.
 ````
 
 (Substitute the actual per-round errors from each critic turn's `error` field.)
