@@ -1,3 +1,7 @@
+> **OPTIONAL LEGACY PATH.** This document describes Gemini deep research via
+> `claudikins-tool-executor`. The primary think-tank workflow uses `WebSearch` +
+> `WebFetch` (see `web-research.md`). Exa MCP is also optional. Neither is required.
+
 # Gemini Deep Research Reference
 
 Deep research is asynchronous. It takes **5-20 minutes** (sometimes longer for complex queries). Be patient.

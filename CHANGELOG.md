@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2026-06-07
+
+### Changed
+
+- **think-tank research path**: Stage 5 (`think-tank`) now documents `WebSearch` + `WebFetch` as the primary exemplar-research workflow. Exa MCP and Gemini deep research are optional enhancements only — the pipeline must not halt when they are unavailable.
+- New reference: `skills/think-tank/references/web-research.md` (tool priority chain and graceful-degradation path).
+- `skills/think-tank/SKILL.md`, `commands/think-tank.md`, and `gemini-deep-research.md` updated to reflect the non-Exa default.
+- README Quick Start notes that no Exa API key is required.
+
+---
+
 ## [3.0.0] - 2026-06-07
 
 ### Changed

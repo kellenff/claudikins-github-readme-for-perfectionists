@@ -13,8 +13,12 @@ Read the governance files:
 
 1. `references/scoring-rubric.md` (How to grade quality).
 2. `references/badge-ecosystem.md` (Which badges signal what).
-3. `references/gemini-deep-research.md` (How to execute Gemini deep research).
+3. `references/web-research.md` (Primary: `WebSearch` + `WebFetch` — no API keys required).
 
+> **Research tools:** Exa is an optional enhancement, not a dependency. If Exa MCP is unavailable, use `WebSearch` and `WebFetch` only. Do not halt the pipeline. See `references/web-research.md` for the full priority chain and graceful-degradation path.
+>
+> **Legacy path:** `references/gemini-deep-research.md` (Gemini via `claudikins-tool-executor`) — optional only; do not require it.
+>
 > **Graph tools:** This phase researches external exemplar repositories on the web. Graph tools are not part of the standard workflow here. See `references/graph-analysis.md` at the plugin root if a locally-grounded contrast (e.g., "how does our API surface compare to these exemplars?") is needed.
 
 ---

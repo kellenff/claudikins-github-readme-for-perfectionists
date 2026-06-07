@@ -5,7 +5,7 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT License"></a>
   <a href="https://github.com/anthropics/claude-code"><img src="https://img.shields.io/badge/Claude_Code-Plugin-5A67D8?style=flat-square" alt="Claude Code Plugin"></a>
-  <img src="https://img.shields.io/badge/version-3.0.0-blue?style=flat-square" alt="Version 3.0.0">
+  <img src="https://img.shields.io/badge/version-3.0.1-blue?style=flat-square" alt="Version 3.0.1">
   <img src="https://img.shields.io/badge/Critic_Voice-Always--on-9F7AEA?style=flat-square" alt="Critic Voice: Always-on">
   <img src="https://img.shields.io/badge/Delve_Index-0%25-brightgreen?style=flat-square" alt="0% Delve Index">
 </p>
@@ -55,6 +55,8 @@ curl -fsSL https://deno.land/install.sh | sh
 Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Without the symlink and `MINIMAX_API_KEY`, Stage 4 halts with a one-line install hint. Deno is required — Chorus does not ship a standalone binary.
 
 Optional: install `claudikins-tool-executor` for graph-analysis tools (`search_graph`, `trace_path`, `get_architecture`) that improve `/deep-dive` and `/crystal-ball` on real codebases. Without it, those stages fall back to file-based heuristics.
+
+No Exa API key or search plugin is required. `/think-tank` uses built-in `WebSearch` and `WebFetch` by default.
 
 ## How it works
 
