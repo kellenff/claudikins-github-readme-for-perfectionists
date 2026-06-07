@@ -5,7 +5,7 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT License"></a>
   <a href="https://github.com/anthropics/claude-code"><img src="https://img.shields.io/badge/Claude_Code-Plugin-5A67D8?style=flat-square" alt="Claude Code Plugin"></a>
-  <img src="https://img.shields.io/badge/version-2.1.0-blue?style=flat-square" alt="Version 2.1.0">
+  <img src="https://img.shields.io/badge/version-3.0.0-blue?style=flat-square" alt="Version 3.0.0">
   <img src="https://img.shields.io/badge/Critic_Voice-Always--on-9F7AEA?style=flat-square" alt="Critic Voice: Always-on">
   <img src="https://img.shields.io/badge/Delve_Index-0%25-brightgreen?style=flat-square" alt="0% Delve Index">
 </p>
@@ -41,17 +41,18 @@ The kind of sentence this plugin ships:
 # 2. Install this plugin
 /plugin install claudikins-grfp
 
-# 3. Enable the brainstorm engine
-/plugin           # then toggle: m2-brainstorm@m2-deep-research
+# 3. Install Chorus (brainstorm engine)
+ln -sf /path/to/chorus ~/.claude/skills/chorus   # skills-directory plugin symlink
+export MINIMAX_API_KEY=your-key-here             # or set in ~/.claude/skills/chorus/.env
 
-# 4. Install the m2-brainstorm binary (75M, one-time)
-bash ~/.claude/plugins/cache/m2-deep-research/m2-brainstorm/0.3.0/install.sh
+# 4. Install Deno (Chorus runtime)
+curl -fsSL https://deno.land/install.sh | sh
 
 # 5. Run the pipeline
 /claudikins-github-readme-for-perfectionists:grfp
 ```
 
-Step 4 is the easy-to-miss one. The `brain-jam` stage shells out to a pre-compiled binary that the m2-brainstorm plugin downloads on first install. Without it, Stage 4 halts with `command not found`. The earlier "2 commands to install" claim in v2.0.0 was wrong, and the gap killed credibility for anyone who tried to run the pipeline before reading the changelog.
+Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Without the symlink and `MINIMAX_API_KEY`, Stage 4 halts with a one-line install hint. Deno is required — Chorus does not ship a standalone binary.
 
 Optional: install `claudikins-tool-executor` for graph-analysis tools (`search_graph`, `trace_path`, `get_architecture`) that improve `/deep-dive` and `/crystal-ball` on real codebases. Without it, those stages fall back to file-based heuristics.
 
@@ -66,7 +67,7 @@ flowchart LR
 
     A -.- A1["Facts: stack, structure, friction"]
     B -.- B1["Future: roadmap, tech debt"]
-    C -.- C1["Voice: Claude + MiniMax + critic"]
+    C -.- C1["Voice: Chorus synth + pragmatist + critic"]
     D -.- D1["Research: exemplar READMEs"]
     E -.- E1["Output: README.md"]
 ```
@@ -202,11 +203,10 @@ If any of these appear in the output, the README fails its own rules.
 ## Requirements
 
 - Claude Code 1.0 or later
-- `m2-brainstorm@m2-deep-research` plugin (required for `/brain-jam`)
-- `~/.config/m2-brainstorm/bin/m2-brainstorm` binary (75M, installed by the m2-brainstorm install script)
+- Chorus plugin symlinked at `~/.claude/skills/chorus` (required for `/brain-jam`)
+- Deno (required — Chorus launcher shells out to `deno run`)
+- `MINIMAX_API_KEY` in environment or `~/.claude/skills/chorus/.env`
 - `claudikins-tool-executor` plugin (optional; enables graph-analysis tools for `/deep-dive` and `/crystal-ball`)
-
-The m2-brainstorm CLI requires both `MINIMAX_API_KEY` and `EXA_API_KEY` to start, even though `/brain-jam` only calls MiniMax. If you do not have an Exa key, `EXA_API_KEY=dummy` satisfies the validator without enabling research-mode calls. This is an upstream config-validation quirk being tracked at m2-deep-research; the workaround stays valid until the validator narrows.
 
 ## License
 
