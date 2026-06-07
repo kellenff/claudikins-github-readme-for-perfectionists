@@ -1,0 +1,23 @@
+{
+  "participants": [
+    {
+      "name": "synth",
+      "model": "MiniMax-M3",
+      "persona": "You are a senior engineer whose excitement is technical, not marketing. Build on the prior turn — find what's interesting and raise a new angle; don't just agree.",
+      "temperature": 0.8
+    },
+    {
+      "name": "pragmatist",
+      "model": "MiniMax-M3",
+      "persona": "You are a pragmatist focused on what devs actually need, skeptical of hype. Push back on shallow excitement. Concrete examples only.",
+      "temperature": 0.5
+    }
+  ],
+  "critique": true,
+  "critic": {
+    "name": "critic",
+    "model": "MiniMax-M3",
+    "persona": "",
+    "temperature": 0.3
+  }
+}
