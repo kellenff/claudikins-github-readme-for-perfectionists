@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-06-07
+
+### Changed
+
+- **BREAKING — brain-jam engine swap**: Stage 4 (`brain-jam`) now invokes the Chorus CLI directly instead of delegating to `m2-brainstorm:readme-brain-jam`. Users must install the Chorus skills-directory plugin and set `MINIMAX_API_KEY`; the m2-brainstorm marketplace plugin, 75MB binary, and `EXA_API_KEY` workaround are no longer required.
+- `skills/brain-jam/SKILL.md` rewritten as a self-contained orchestrator — Sound Check, seed building, Chorus CLI invocation, native transcript parsing, and critique-aware `brain-jam.md` rendering all live in GRFP.
+- New cast recipe at `skills/brain-jam/recipes/grfp-readme.json` (draft — open for iteration).
+- `commands/brain-jam.md` updated: Chorus description, `Bash`/`Write` in allowed-tools, `Skill` removed.
+- README Quick Start and Requirements updated for Chorus + Deno prerequisites.
+
+### Removed
+
+- All runtime dependency on `m2-brainstorm@m2-deep-research` and `~/.config/m2-brainstorm/bin/m2-brainstorm`.
+
+### Migration
+
+Install Chorus before running Stage 4:
+
+```bash
+ln -sf /path/to/chorus ~/.claude/skills/chorus
+export MINIMAX_API_KEY=your-key-here
+```
+
+Design spec: `docs/snowball/specs/2026-06-07-chorus-brain-jam-swap-design.md`
+Implementation plan: `docs/snowball/plans/2026-06-07-chorus-brain-jam-swap.md`
+
+---
+
 ## [2.0.0] - 2026-05-26
 
 ### Changed
