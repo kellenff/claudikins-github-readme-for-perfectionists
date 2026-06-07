@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-06-07
+
+### Changed
+
+- **brain-jam cast**: Default synth voice is now Gemini 3.5 Flash (`gemini-3.5-flash`); pragmatist and critic remain MiniMax-M3.
+- **brain-jam rounds**: Reduced from 3 to 2 (`--max-rounds 2`).
+- **Provider fallback**: Brain-jam runs with either `GEMINI_API_KEY` or `MINIMAX_API_KEY`; missing provider roles fall back to the available model. Both keys preferred for cross-provider diversity.
+- New recipes: `grfp-readme.fallback-minimax.json`, `grfp-readme.fallback-gemini.json`.
+
+Design spec: `docs/snowball/specs/2026-06-07-gemini-synth-cast-fallback-design.md`
+Implementation plan: `docs/snowball/plans/2026-06-07-gemini-synth-cast-fallback.md`
+
+---
+
 ## [3.0.1] - 2026-06-07
 
 ### Changed

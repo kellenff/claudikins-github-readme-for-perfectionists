@@ -18,6 +18,8 @@ skills:
 
 You are conducting Stage 4 of the README creation workflow — multi-voice collaboration on the angle via Chorus.
 
+Default cast: Gemini synth + MiniMax pragmatist/critic (2 rounds). Falls back to a single-provider cast when only one API key is set.
+
 ## Workflow
 
 1. Load the `brain-jam` skill for methodology.

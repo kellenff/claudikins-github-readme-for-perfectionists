@@ -73,6 +73,40 @@ If staging files are thin despite passing Step 1, ask the user inline for 2–3 
 
 ---
 
+## Step 4.5: Resolve cast config
+
+Probe API keys and pick the Chorus recipe. Run via Bash:
+
+```bash
+if [ -n "$GEMINI_API_KEY" ] && [ -n "$MINIMAX_API_KEY" ]; then
+  echo "skills/brain-jam/recipes/grfp-readme.json"
+elif [ -n "$MINIMAX_API_KEY" ]; then
+  echo "skills/brain-jam/recipes/grfp-readme.fallback-minimax.json"
+elif [ -n "$GEMINI_API_KEY" ]; then
+  echo "skills/brain-jam/recipes/grfp-readme.fallback-gemini.json"
+else
+  echo "NO_KEYS"
+fi
+```
+
+If the output is `NO_KEYS`, halt with:
+
+> Need at least one API key: set GEMINI_API_KEY and/or MINIMAX_API_KEY (both preferred for cross-provider cast), then retry /brain-jam.
+
+Store the output path as `CAST_CONFIG`.
+
+If the path contains `fallback-minimax`, tell the operator before Step 5:
+
+> Only MINIMAX_API_KEY found — running MiniMax for all voices (Gemini synth unavailable).
+
+If the path contains `fallback-gemini`, tell the operator:
+
+> Only GEMINI_API_KEY found — running Gemini for all voices (MiniMax pragmatist/critic unavailable).
+
+Record whether a fallback was used (`FALLBACK=none|minimax|gemini`) for Step 6.3.
+
+---
+
 ## Step 5: Run Chorus CLI
 
 Compute the timestamp NOW: run `date +%Y%m%dT%H%M%S` via Bash. Transcript path:
@@ -85,12 +119,12 @@ Run Chorus with the resolved binary from Step 2:
 
 ```bash
 "$CHORUS" \
-  --config skills/brain-jam/recipes/grfp-readme.json \
+  --config "$CAST_CONFIG" \
   --prompt "What's the right angle for this README — tone, hook, and positioning?" \
   --seed "<seed from Step 4>" \
   --critique \
   --critic-temperature 0.3 \
-  --max-rounds 3 \
+  --max-rounds 2 \
   --argdown-mode lightweight \
   --output .claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json
 ```
@@ -131,6 +165,10 @@ Iterate `turns` filtering by `kind == "critique"` and `participant == "critic"`.
 Write to `.claude/grfp/brain-jam.md` using the Write tool. Block 1 always renders; Blocks 2–4 depend on mode.
 
 #### Block 1 — Set List (always rendered)
+
+If Step 4.5 used a fallback cast (`FALLBACK` is `minimax` or `gemini`), prepend this line before `## Set List`:
+
+> *Cast fallback: MiniMax-only (GEMINI_API_KEY not set).* — or — *Cast fallback: Gemini-only (MINIMAX_API_KEY not set).*
 
 Synthesize three angles from speak turns (`kind == "speak"`). Citation turn ids use Chorus participant names: `synth_rN`, `pragmatist_rN`, `critic_rN`.
 

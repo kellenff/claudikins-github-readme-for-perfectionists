@@ -43,7 +43,9 @@ The kind of sentence this plugin ships:
 
 # 3. Install Chorus (brainstorm engine)
 ln -sf /path/to/chorus ~/.claude/skills/chorus   # skills-directory plugin symlink
-export MINIMAX_API_KEY=your-key-here             # or set in ~/.claude/skills/chorus/.env
+export GEMINI_API_KEY=your-gemini-key-here   # synth (preferred)
+export MINIMAX_API_KEY=your-minimax-key-here # pragmatist + critic (preferred)
+# Either key alone works — brain-jam falls back to a single-provider cast
 
 # 4. Install Deno (Chorus runtime)
 curl -fsSL https://deno.land/install.sh | sh
@@ -52,7 +54,7 @@ curl -fsSL https://deno.land/install.sh | sh
 /claudikins-github-readme-for-perfectionists:grfp
 ```
 
-Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Without the symlink and `MINIMAX_API_KEY`, Stage 4 halts with a one-line install hint. Deno is required — Chorus does not ship a standalone binary.
+Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Stage 4 needs the Chorus symlink, Deno, and **at least one** of `GEMINI_API_KEY` or `MINIMAX_API_KEY`. Both keys give a cross-provider cast (Gemini synth + MiniMax pragmatist/critic); a single key falls back to that provider for all voices. Deno is required — Chorus does not ship a standalone binary.
 
 Optional: install `claudikins-tool-executor` for graph-analysis tools (`search_graph`, `trace_path`, `get_architecture`) that improve `/deep-dive` and `/crystal-ball` on real codebases. Without it, those stages fall back to file-based heuristics.
 
@@ -69,7 +71,7 @@ flowchart LR
 
     A -.- A1["Facts: stack, structure, friction"]
     B -.- B1["Future: roadmap, tech debt"]
-    C -.- C1["Voice: Chorus synth + pragmatist + critic"]
+    C -.- C1["Voice: Gemini synth + MiniMax pragmatist/critic (2 rounds)"]
     D -.- D1["Research: exemplar READMEs"]
     E -.- E1["Output: README.md"]
 ```
@@ -78,7 +80,7 @@ Each stage writes a discrete artifact under `.claude/grfp/`. Later stages consum
 
 ## The critic third voice (v2.1.0)
 
-Stage 3 runs a 3-voice dialogue: a Claude-synth and a MiniMax-pragmatist debate the angle, then an argdown-grounded critic emits structured anti-steelman, undefended assumptions, and an argument graph after each round. The critic's output reshapes the next round's speaker prompts. The synthesis surfaces ideas neither voice had alone.
+Stage 3 runs a 3-voice dialogue: a Gemini synth and a MiniMax pragmatist debate the angle, then an argdown-grounded critic emits structured anti-steelman, undefended assumptions, and an argument graph after each round. Two dialogue rounds by default. The critic's output reshapes the next round's speaker prompts. The synthesis surfaces ideas neither voice had alone.
 
 Example of what `brain-jam.md` looks like when the critic succeeds:
 
@@ -207,7 +209,7 @@ If any of these appear in the output, the README fails its own rules.
 - Claude Code 1.0 or later
 - Chorus plugin symlinked at `~/.claude/skills/chorus` (required for `/brain-jam`)
 - Deno (required — Chorus launcher shells out to `deno run`)
-- `MINIMAX_API_KEY` in environment or `~/.claude/skills/chorus/.env`
+- At least one of `GEMINI_API_KEY` or `MINIMAX_API_KEY` in environment or `~/.claude/skills/chorus/.env` (both preferred)
 - `claudikins-tool-executor` plugin (optional; enables graph-analysis tools for `/deep-dive` and `/crystal-ball`)
 
 ## License
