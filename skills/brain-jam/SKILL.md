@@ -1,13 +1,13 @@
 ---
 name: brain-jam
-description: "Use when determining project tone, voice, and marketing angle after deep-dive and crystal-ball phases. Delegates to m2-brainstorm:readme-brain-jam (MiniMax-M2.7-highspeed)."
+description: "Use when determining project tone, voice, and marketing angle after deep-dive and crystal-ball phases. Runs a Chorus CLI dialogue with always-on critic and renders critique-aware brain-jam.md."
 ---
 
-# The Brain-Jam (GRFP adapter)
+# The Brain-Jam (GRFP Stage 4)
 
-Stage 4 of the GRFP pipeline. This skill is a **thin adapter**: it validates GRFP staging files, pre-instructs an output-path override, then delegates the actual brainstorm to `m2-brainstorm:readme-brain-jam`.
+Stage 4 of the GRFP pipeline. This skill is a **self-contained orchestrator**: it validates staging files, resolves the Chorus CLI, runs the three-question Sound Check, builds a seed from staging context, invokes Chorus, parses the transcript, renders `.claude/grfp/brain-jam.md`, and hands off to pen-wielding.
 
-The downstream engine runs MiniMax-M2.7-highspeed. It knows about GRFP staging files and writes the transcript JSON to the path the adapter computes. This adapter takes over the synthesis-and-write step: it reads the transcript, renders the critique-aware `.claude/grfp/brain-jam.md`, and prompts for `/claudikins-github-readme-for-perfectionists:pen-wielding` itself.
+Always-on critic. Users who want a cheaper two-voice dialogue without GRFP staging can invoke the Chorus skill directly.
 
 ---
 
@@ -30,84 +30,109 @@ Do not attempt to improvise context or skip these checks.
 
 ---
 
-## Step 2: Verify the m2-brainstorm plugin is available
+## Step 2: Resolve Chorus CLI
 
-*(This step defines the halt response if the m2-brainstorm plugin is unavailable. The actual detection happens during the Skill tool invocation in Step 3.)*
+Run via the Bash tool:
 
-This skill delegates to `m2-brainstorm:readme-brain-jam`. If the Skill tool returns "skill not found" or an equivalent unavailable-skill error, halt with:
+```bash
+CHORUS="$(command -v chorus 2>/dev/null || echo "$HOME/.claude/skills/chorus/bin/chorus")"
+if [ ! -x "$CHORUS" ]; then echo "MISSING"; else echo "$CHORUS"; fi
+```
 
-> m2-brainstorm plugin not enabled. Run /plugin → enable m2-brainstorm@m2-deep-research, then retry /brain-jam.
+If the output is `MISSING`, halt with:
 
-Do NOT attempt to edit `~/.claude/settings.json` automatically. Plugin enablement is user-driven.
+> Chorus not found. Symlink the chorus plugin to ~/.claude/skills/chorus (see README), then retry /brain-jam.
+
+If the launcher fails with `deno: command not found`, halt with:
+
+> Deno required to run Chorus. Install Deno (https://deno.land), then retry /brain-jam.
+
+Do NOT attempt to edit `~/.claude/settings.json` or install Chorus automatically.
 
 ---
 
-## Step 3: Delegation contract — invoke readme-brain-jam with locked overrides
+## Step 3: Sound check
 
-Compute the timestamp NOW (before invoking the Skill tool): run `date +%Y%m%dT%H%M%S` via the Bash tool. For example, a run at 2:23pm on 26 May 2026 yields `20260526T142300`. The full transcript path is then `.claude/grfp/brainstorm-transcript-20260526T142300.json` (substitute your computed timestamp).
+Ask the user, **one question at a time** (use AskUserQuestion or equivalent):
 
-The locked-in transcript path format is:
+1. **The "Killer" Feature:** What implementation detail are you proudest of?
+2. **The "Pain" Point:** What 2 AM frustration does this solve?
+3. **The Vibe:** Do you want "Technical Clarity" or "Organised Chaos"?
+
+Record all three answers before proceeding.
+
+---
+
+## Step 4: Build seed
+
+Read `.claude/grfp/deep-dive.md` and `.claude/grfp/crystal-ball.md` with the Read tool.
+
+Compose the Chorus `--seed` string as: tech-stack summary (from deep-dive) + roadmap tension (from crystal-ball) + killer feature + pain point + vibe preference (from Sound Check). Aim for 4–6 sentences with at least one concrete claim and one tension.
+
+If staging files are thin despite passing Step 1, ask the user inline for 2–3 sentences about what the project does.
+
+---
+
+## Step 5: Run Chorus CLI
+
+Compute the timestamp NOW: run `date +%Y%m%dT%H%M%S` via Bash. Transcript path:
 
 ```
 .claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json
 ```
 
-**Required overrides when invoking `m2-brainstorm:readme-brain-jam`:**
+Run Chorus with the resolved binary from Step 2:
 
-| Flag                   | Value                                                  | Why locked                                                              |
-| ---------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------- |
-| `--output`             | `.claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json` | GRFP staging artifacts must live under `.claude/grfp/`.             |
-| `--critique`           | (flag-only, no value)                                  | GRFP always uses the third voice. Users who want the cheaper two-voice dialogue can invoke `/m2-brainstorm:readme-brain-jam` directly. |
-| `--critic-temperature` | `0.3`                                                  | Matches m2-brainstorm spec default; analytical extraction favors deterministic output over creative variation. |
+```bash
+"$CHORUS" \
+  --config skills/brain-jam/recipes/grfp-readme.json \
+  --prompt "What's the right angle for this README — tone, hook, and positioning?" \
+  --seed "<seed from Step 4>" \
+  --critique \
+  --critic-temperature 0.3 \
+  --max-rounds 3 \
+  --argdown-mode lightweight \
+  --output .claude/grfp/brainstorm-transcript-<YYYYMMDDTHHMMSS>.json
+```
 
-**Required behavior override:**
+Substitute the actual timestamp and seed. Chorus prints the transcript path to stdout on success.
 
-When reading the downstream `readme-brain-jam` skill, treat its Step 6 (Set List synthesis) and Step 7 (write `brain-jam.md`, prompt for `/pen-wielding`) as overridden. Stop following downstream instructions after the CLI returns; this adapter's Step 4 performs the equivalent work with critique-aware rendering.
-
-Everything else is the downstream skill's responsibility:
-
-- The three-question Sound Check
-- Reading `.claude/grfp/deep-dive.md` and `.claude/grfp/crystal-ball.md` to build `--claude-thoughts`
-- Running the MiniMax CLI with the locked overrides above plus its own `--prompt`, `--claude-thoughts`, and `--max-rounds` arguments
-- Returning the transcript path
-
-If the MiniMax CLI fails (network, API key, missing binary), let the downstream skill surface the error. Do not wrap, retry, or swallow it.
+If the CLI exits non-zero, surface stderr verbatim. Do not wrap, retry, or swallow errors.
 
 ---
 
-## Step 4: Read transcript and render brain-jam.md
+## Step 6: Read transcript and render brain-jam.md
 
-When the downstream CLI returns with exit code 0, the transcript JSON exists at the path you computed in Step 3. Read it with the Read tool.
+When the CLI returns exit code 0, read the transcript JSON at the path from Step 5.
 
-### Step 4.1: Parse and validate transcript shape
+### Step 6.1: Parse and validate transcript shape
 
 The transcript JSON must contain:
 
-- `turns`: array of turn objects, each with `round`, `speaker`, and content fields
-- `synthesis_hint`: string (used as a synthesis seed)
-- `critique_aggregate`: object — always required (the adapter unconditionally passes `--critique`)
+- `turns`: array of turn objects with `round`, `participant`, and `kind` fields
+- `critiqueAggregate`: object — always required (Step 5 unconditionally passes `--critique`)
 
-If any of these top-level fields are missing, halt with:
+If any required top-level field is missing, halt with:
 
-> Transcript shape invalid: <field> missing. The m2-brainstorm engine may have changed contract. Run `/m2-brainstorm:readme-brain-jam` directly to verify, then report upstream.
+> Transcript shape invalid: <field> missing. Chorus engine may have changed contract.
 
-This is the Layer 3 defensive halt. Do not attempt to render a partial file.
+Do not attempt to render a partial file.
 
-### Step 4.2: Classify critic status
+### Step 6.2: Classify critic status
 
-Iterate `turns` filtering by `speaker == "critic"`. Each critic turn has a `status` field of `"ok"` or `"unavailable"`.
+Iterate `turns` filtering by `kind == "critique"` and `participant == "critic"`. Each critic turn has `status` of `"ok"` or `"unavailable"`.
 
 - If **all** critic turns have `status == "ok"`, set rendering mode to **FULL**.
-- If **some** critic turns are `"ok"` and **some** are `"unavailable"`, set rendering mode to **PARTIAL**.
+- If **some** are `"ok"` and **some** are `"unavailable"`, set rendering mode to **PARTIAL**.
 - If **all** critic turns have `status == "unavailable"`, set rendering mode to **NO-CRITIQUE**.
 
-### Step 4.3: Render brain-jam.md based on mode
+### Step 6.3: Render brain-jam.md based on mode
 
-Write the rendered markdown to `.claude/grfp/brain-jam.md` using the Write tool. The file always starts with Block 1 (Set List). Blocks 2-4 depend on mode.
+Write to `.claude/grfp/brain-jam.md` using the Write tool. Block 1 always renders; Blocks 2–4 depend on mode.
 
 #### Block 1 — Set List (always rendered)
 
-Synthesize three angles from the dialogue. Each angle cites the turns it emerged from; the synthesis option may cite a `critic_rN` turn when the critic's steelman influenced it. Template:
+Synthesize three angles from speak turns (`kind == "speak"`). Citation turn ids use Chorus participant names: `synth_rN`, `pragmatist_rN`, `critic_rN`.
 
 ````markdown
 ## Set List
@@ -115,7 +140,7 @@ Synthesize three angles from the dialogue. Each angle cites the turns it emerged
 **Option 1: The "Deep Tech" Angle**
 _Headline Idea:_ <one sentence>
 _Focus:_ <one sentence>
-_Cited from:_ <comma-separated turn ids like claude_r2, pragmatist_r3>
+_Cited from:_ <comma-separated turn ids like synth_r2, pragmatist_r3>
 
 **Option 2: The "Pragmatic Solver" Angle**
 _Headline Idea:_ <one sentence>
@@ -132,47 +157,42 @@ _Cited from:_ <comma-separated turn ids; may include critic_rN>
 
 #### Block 2 — Watch-Outs (FULL or PARTIAL mode only)
 
-Aggregate `anti_steelman` fields from all `status == "ok"` critic turns. Group by speaker; preserve round order.
+Aggregate `antiSteelman` from all `status == "ok"` critic turns. Group by participant key (`synth`, `pragmatist`); preserve round order.
 
 ````markdown
 ## Watch-Outs (anti-steelman per voice)
 
-**Where the "deep tech" voice was weakest:**
-- Round 1: "<anti_steelman.claude verbatim>"
-- Round 2: "<anti_steelman.claude verbatim>"
-- ... (one bullet per critic turn that has the claude anti-steelman)
+**Where the "synth" voice was weakest:**
+- Round 1: "<antiSteelman.synth verbatim>"
+- Round 2: "<antiSteelman.synth verbatim>"
 
 **Where the "pragmatist" voice was weakest:**
-- Round 1: "<anti_steelman.pragmatist verbatim>"
-- Round 2: "<anti_steelman.pragmatist verbatim>"
-- ... (one bullet per critic turn that has the pragmatist anti-steelman)
+- Round 1: "<antiSteelman.pragmatist verbatim>"
+- Round 2: "<antiSteelman.pragmatist verbatim>"
 ````
 
-In **PARTIAL** mode, append this footnote line at the end of Block 2:
+In **PARTIAL** mode, append:
 
 > *Critic was unavailable for round(s) <comma-separated round numbers>. Coverage is partial.*
 
 #### Block 3 — Undefended Assumptions (FULL or PARTIAL mode only)
 
-Aggregate `assumptions[].premise` where `argued_for == false`, across all `status == "ok"` critic turns. Deduplicate by case-insensitive string match; preserve first-occurrence order.
+Aggregate `assumptions[].premise` where `argued_for == false` from all `status == "ok"` critic turns. Deduplicate case-insensitively; preserve first-occurrence order. Prefix with `participant`.
 
 ````markdown
 ## Undefended Assumptions
 
 Consider the following hidden assumptions in the research:
 
-- (claude) "<premise>"
+- (synth) "<premise>"
 - (pragmatist) "<premise>"
-- ... (one bullet per unique undefended premise, prefixed with speaker)
 ````
 
-In **PARTIAL** mode, append this footnote line at the end of Block 3:
-
-> *Critic was unavailable for round(s) <comma-separated round numbers>. Coverage is partial.*
+In **PARTIAL** mode, append the same partial-coverage footnote as Block 2.
 
 #### Block 4 — Argument Map (FULL or PARTIAL mode only)
 
-Use the **last** `status == "ok"` critic turn's `argdown` source. In FULL mode this is the final round; in PARTIAL mode it may be an earlier round.
+Use the **last** `status == "ok"` critic turn's `argdown` source and `dungExtension` partition.
 
 **FULL mode template:**
 
@@ -180,54 +200,40 @@ Use the **last** `status == "ok"` critic turn's `argdown` source. In FULL mode t
 ## Argument Map (round N)
 
 ```argdown
-<argdown source verbatim from critic_rN.argdown>
+<argdown source verbatim>
 ```
 
-**Surviving arguments (IN):** <comma-separated argument labels from dung_extension.in>
-**Defeated arguments (OUT):** <comma-separated argument labels from dung_extension.out>
-**Undecided (UNDEC):** <comma-separated labels from dung_extension.undec, or "_(none)_">
+**Surviving arguments (IN):** <comma-separated labels from dungExtension.in>
+**Defeated arguments (OUT):** <comma-separated labels from dungExtension.out>
+**Undecided (UNDEC):** <comma-separated labels from dungExtension.undec, or "_(none)_">
 `````
 
-**PARTIAL mode template:**
-
-`````markdown
-## Argument Map (round N — final critic-ok round)
-
-```argdown
-<argdown source verbatim from critic_rN.argdown>
-```
-
-**Surviving arguments (IN):** <comma-separated argument labels from dung_extension.in>
-**Defeated arguments (OUT):** <comma-separated argument labels from dung_extension.out>
-**Undecided (UNDEC):** <comma-separated labels from dung_extension.undec, or "_(none)_">
-`````
+**PARTIAL mode template:** same structure with heading `## Argument Map (round N — final critic-ok round)`.
 
 Substitute `N` with the actual round number.
 
 #### NO-CRITIQUE mode replacement
 
-In **NO-CRITIQUE** mode, skip Blocks 2, 3, and 4 entirely. Append this single block after Block 1:
+Skip Blocks 2–4. Append after Block 1:
 
 ````markdown
 ## Critique unavailable
 
 The critic didn't return any output. This is NOT a terminating error.
 
-Errors were: <semicolon-separated, one entry per critic turn formatted as "round N: \<error from critic_rN.error\>">.
+Errors were: <semicolon-separated "round N: <error>" per critic turn>.
 ````
 
-(Substitute the actual per-round errors from each critic turn's `error` field.)
+### Step 6.4: Confirm file written
 
-### Step 4.4: Confirm file written
-
-Run `ls -la .claude/grfp/brain-jam.md` via the Bash tool to confirm the file exists. Do not Read it back unless rendering failed.
+Run `ls -la .claude/grfp/brain-jam.md` via Bash. Do not Read it back unless rendering failed.
 
 ---
 
-## Step 5: Handoff
+## Step 7: Handoff
 
-The adapter has written `.claude/grfp/brain-jam.md` itself in Step 4. Do NOT re-invoke any rendering. Prompt the user:
+Prompt the user:
 
 > brain-jam.md written to .claude/grfp/. Next stage: run `/claudikins-github-readme-for-perfectionists:pen-wielding`.
 
-This adapter is done.
+This skill is done.
