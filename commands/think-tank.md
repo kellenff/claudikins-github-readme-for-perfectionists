@@ -26,6 +26,15 @@ You are conducting Stage 3 of the README creation workflow — researching exemp
 3. Analyse their README strategies.
 4. Extract patterns and inspiration.
 
+## Research Tool Usage
+
+**Primary:** `WebSearch` + `WebFetch` (no API keys, no Exa required). See `skills/think-tank/references/web-research.md`.
+
+**Optional enhancements** (never hard-fail if missing):
+
+- Exa MCP — faster search if installed; pipeline continues without it
+- `claudikins-tool-executor` Gemini deep research — legacy path only
+
 ## Graph Tool Usage
 
 This is an external web research phase — graph tools are **not** part of the standard workflow. If a locally-grounded comparison is needed (e.g., confirming our API surface matches patterns found in exemplars), you may call `get_architecture` on demand via `execute_code`. See `references/graph-analysis.md` at the plugin root for the tool-executor 3-step workflow.
