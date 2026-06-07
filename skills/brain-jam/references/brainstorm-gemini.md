@@ -1,6 +1,7 @@
 > **DEPRECATED (2026-05-25).** This document describes the legacy `gemini-brainstorm`
-> flow via `claudikins-tool-executor`. The active brain-jam now delegates to
-> `m2-brainstorm:readme-brain-jam` (MiniMax-M2.7-highspeed). Kept for historical reference only.
+> flow via `claudikins-tool-executor`. Superseded first by `m2-brainstorm:readme-brain-jam`
+> (2026-05-26), then by Chorus CLI invocation from GRFP `brain-jam` (2026-06-07).
+> Kept for historical reference only.
 
 # Gemini Brainstorm Reference
 
