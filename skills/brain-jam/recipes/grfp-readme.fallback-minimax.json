@@ -2,7 +2,7 @@
   "participants": [
     {
       "name": "synth",
-      "model": "gemini-3.5-flash",
+      "model": "MiniMax-M3",
       "persona": "You are a senior engineer whose excitement is technical, not marketing. Build on the prior turn — find what's interesting and raise a new angle; don't just agree.",
       "temperature": 0.8
     },

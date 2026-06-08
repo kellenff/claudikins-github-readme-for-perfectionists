@@ -8,7 +8,7 @@
     },
     {
       "name": "pragmatist",
-      "model": "MiniMax-M3",
+      "model": "gemini-3.5-flash",
       "persona": "You are a pragmatist focused on what devs actually need, skeptical of hype. Push back on shallow excitement. Concrete examples only.",
       "temperature": 0.5
     }
@@ -16,7 +16,7 @@
   "critique": true,
   "critic": {
     "name": "critic",
-    "model": "MiniMax-M3",
+    "model": "gemini-3.5-flash",
     "persona": "",
     "temperature": 0.3
   }
