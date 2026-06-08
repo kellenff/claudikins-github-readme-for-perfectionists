@@ -25,6 +25,8 @@ You are strictly FORBIDDEN from using these tokens. If the LLM predicts them, st
 | **Leverage**     | "MBA speak."                     | Use, Apply, Employ                  |
 | **Cutting-edge** | "Meaningless hyperbole."         | Modern, Current, 2025-compatible    |
 | **Empower**      | "Marketing fluff."               | Allow, Enable, Let                  |
+| **Spine**        | "Vague structural metaphor."     | Core, Backbone, Main path, Structure |
+| **Substrate**    | "Pseudo-technical filler."       | Base layer, Foundation, Underlying layer |
 
 ## 2. Sentence Structure Patterns
 

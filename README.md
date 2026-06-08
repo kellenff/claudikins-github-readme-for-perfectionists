@@ -12,13 +12,13 @@
 
 # Github Readme for Perfectionists
 
-ESLint for prose. A Claude Code plugin that treats "delve" as a syntax error.
+ESLint for prose. A Claude Code plugin that treats "delve" as a syntax error and will not let you skip to the final draft until five staged artifacts exist.
 
-## Proof this works (or doesn't)
+## Proof this works (or does not)
 
-This README was written by running the plugin's own pipeline on this repository on 2026-05-27. The five stages produced: deep-dive (Reality Report, 132 lines), crystal-ball (9 roadmap candidates), brain-jam (3 angles via Claude + MiniMax dialogue), think-tank (4 exemplars scored against a rubric), pen-wielding (this file).
+This README was written by running the plugin's own pipeline on this repository on 2026-06-07. The five stages produced: deep-dive (Reality Report, 132 lines), crystal-ball (9 roadmap candidates), brain-jam (3 angles via Gemini synth + MiniMax pragmatist, 2 rounds), think-tank (6 exemplars scored against a rubric), pen-wielding (this file).
 
-The critic third voice was unavailable for all 3 brain-jam rounds because the upstream MiniMax model truncated its JSON output inside the `anti_steelman` field. That failure was supposed to happen invisibly. The plugin's NO-CRITIQUE fallback rendered the brain-jam synthesis without the third voice, footnoted the error per round, and continued. You can read the full transcript at `.claude/grfp/brainstorm-transcript-20260527T174528.json` if you doubt the recursion.
+The critic returned round 1 output and failed on round 2 with JSON truncation. The PARTIAL fallback rendered Watch-Outs and Undefended Assumptions from the surviving round and footnoted the gap. The dialogue was not aborted. Transcript: `.claude/grfp/brainstorm-transcript-20260607T171259.json`.
 
 Banned-word count in the source above: 0.
 
@@ -30,7 +30,7 @@ The kind of sentence this plugin exists to delete:
 
 The kind of sentence this plugin ships:
 
-> This plugin generates README files. It bans 15 filler words, enforces three sentence patterns that require specifics, and renders a structured critique that flags weak claims the writer cannot see.
+> This plugin generates README files. It bans 17 filler words, enforces three sentence patterns that require specifics, and runs a third voice that flags weak claims the writer cannot see.
 
 ## Quick Start (the honest list)
 
@@ -45,7 +45,7 @@ The kind of sentence this plugin ships:
 ln -sf /path/to/chorus ~/.claude/skills/chorus   # skills-directory plugin symlink
 export GEMINI_API_KEY=your-gemini-key-here   # synth (preferred)
 export MINIMAX_API_KEY=your-minimax-key-here # pragmatist + critic (preferred)
-# Either key alone works — brain-jam falls back to a single-provider cast
+# Either key alone works - brain-jam falls back to a single-provider cast
 
 # 4. Install Deno (Chorus runtime)
 curl -fsSL https://deno.land/install.sh | sh
@@ -54,11 +54,25 @@ curl -fsSL https://deno.land/install.sh | sh
 /claudikins-github-readme-for-perfectionists:grfp
 ```
 
-Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Stage 4 needs the Chorus symlink, Deno, and **at least one** of `GEMINI_API_KEY` or `MINIMAX_API_KEY`. Both keys give a cross-provider cast (Gemini synth + MiniMax pragmatist/critic); a single key falls back to that provider for all voices. Deno is required — Chorus does not ship a standalone binary.
+Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Stage 4 needs the Chorus symlink, Deno, and **at least one** of `GEMINI_API_KEY` or `MINIMAX_API_KEY`. Both keys give a cross-provider cast (Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic); a single key falls back to that provider for all voices. Deno is required - Chorus does not ship a standalone binary.
 
-Optional: install `claudikins-tool-executor` for graph-analysis tools (`search_graph`, `trace_path`, `get_architecture`) that improve `/deep-dive` and `/crystal-ball` on real codebases. Without it, those stages fall back to file-based heuristics.
+Optional: install `claudikins-tool-executor` or enable `codebase-memory` MCP for graph-analysis tools (`search_graph`, `trace_path`, `get_architecture`) that improve `/deep-dive` and `/crystal-ball` on real codebases. Without either, those stages fall back to file-based heuristics.
 
 No Exa API key or search plugin is required. `/think-tank` uses built-in `WebSearch` and `WebFetch` by default.
+
+## The pipeline
+
+Five sequential stages. Each writes a staging file under `.claude/grfp/`. Later stages read earlier ones. The orchestrator refuses to skip ahead.
+
+| # | Stage | Command suffix | Output artifact | Exit criterion |
+| - | ----- | -------------- | --------------- | -------------- |
+| 1 | Deep Dive | `:deep-dive` | `.claude/grfp/deep-dive.md` | Reality Report with stack, friction, entry points |
+| 2 | Crystal Ball | `:crystal-ball` | `.claude/grfp/crystal-ball.md` | Roadmap Candidates tables |
+| 3 | Brain Jam | `:brain-jam` | `.claude/grfp/brain-jam.md` | Three angles + critic blocks (when available) |
+| 4 | Think Tank | `:think-tank` | `.claude/grfp/think-tank.md` | Exemplar scores + structural blueprint |
+| 5 | Pen Wielding | `:pen-wielding` | `README.md` | Final prose passes Anti-Slop governance |
+
+You are done when stage 5 writes the file, not when you feel ready.
 
 ## How it works
 
@@ -71,16 +85,16 @@ flowchart LR
 
     A -.- A1["Facts: stack, structure, friction"]
     B -.- B1["Future: roadmap, tech debt"]
-    C -.- C1["Voice: Gemini synth + MiniMax pragmatist/critic (2 rounds)"]
+    C -.- C1["Voice: Gemini synth + MiniMax pragmatist (2 rounds)"]
     D -.- D1["Research: exemplar READMEs"]
     E -.- E1["Output: README.md"]
 ```
 
-Each stage writes a discrete artifact under `.claude/grfp/`. Later stages consume earlier ones. The orchestrator refuses to skip ahead: if `crystal-ball.md` is missing, `/brain-jam` halts. This is the forcing function the pipeline sells. You are done when stage 5 writes the file, not when you feel ready.
+## The critic third voice (v3.1.0)
 
-## The critic third voice (v2.1.0)
+Stage 3 runs a 3-voice dialogue: a Gemini 3.5 Flash synth and a MiniMax-M3 pragmatist debate the angle, then an argdown-grounded critic emits structured anti-steelman, undefended assumptions, and an argument map after each round. Two dialogue rounds by default. The critic's output reshapes the next round's speaker prompts. The synthesis surfaces ideas neither voice had alone.
 
-Stage 3 runs a 3-voice dialogue: a Gemini synth and a MiniMax pragmatist debate the angle, then an argdown-grounded critic emits structured anti-steelman, undefended assumptions, and an argument graph after each round. Two dialogue rounds by default. The critic's output reshapes the next round's speaker prompts. The synthesis surfaces ideas neither voice had alone.
+Argdown is plain-text argument notation. `[Claim]:` states a thesis. `+` adds support. `-` raises an attack. The critic uses it the same way a linter reads an AST.
 
 Example of what `brain-jam.md` looks like when the critic succeeds:
 
@@ -94,9 +108,9 @@ Example of what `brain-jam.md` looks like when the critic succeeds:
 ## Undefended Assumptions
 
 - (pragmatist) "Warm traffic dominates; cold readers are the minority."
-- (claude) "Exit criteria are visible from the README alone."
+- (synth) "Exit criteria are visible from the README alone."
 
-## Argument Map (round 3)
+## Argument Map (round 2)
 
 ```argdown
 [Hook]: The README is the proof of the tool
@@ -108,17 +122,17 @@ Example of what `brain-jam.md` looks like when the critic succeeds:
 **Defeated arguments (OUT):** Bloat
 ````
 
-When the critic fails (model timeout, JSON truncation, argdown parse error), the adapter renders Block 1 (Set List) only and footnotes which rounds failed. The dialogue is never aborted. That fallback fired three times in this README's brain-jam stage; the synthesis still landed.
+When the critic fails (model timeout, JSON truncation, argdown parse error), the adapter renders Block 1 (Set List) only or PARTIAL blocks from surviving rounds and footnotes which rounds failed. The dialogue is never aborted. Round 2 of this README's brain-jam stage hit JSON truncation; round 1 critique still shaped the draft.
 
 ## What pen-wielding enforces
 
 The writing stage applies four governance files plus a pre-write critique check:
 
-- **style-guide.md** - 15 banned words, three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
+- **style-guide.md** - 17 banned words, three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
 - **structural-templates.md** - section ordering by project type, results tables, do/don't patterns
 - **visual-engineering.md** - mermaid diagrams, ASCII progress bars, visual density floor of 1 per 300 words
 - **anti-patterns.md** - writing anti-patterns (passive voice, hedging, generic headers), research anti-patterns, quality checklist
-- **Step 3.5 (v2.1.0)** - scan `brain-jam.md`'s Watch-Outs, Undefended Assumptions, and Argument Map before writing. Be aware as you write. Substantiate the assumptions from `deep-dive.md` or cut the claim.
+- **Step 3.5 (v3.1.0)** - scan `brain-jam.md`'s Watch-Outs, Undefended Assumptions, and Argument Map before writing. Be aware as you write. Substantiate the assumptions from `deep-dive.md` or cut the claim.
 
 <details>
 <summary><strong>The three sentence patterns</strong></summary>
@@ -184,23 +198,37 @@ Write TO readers, not AT them.
 | Leverage | Use, Apply, Employ |
 | Cutting-edge | Modern, Current |
 | Empower | Allow, Enable, Let |
+| Spine | Core, Backbone, Main path, Structure |
+| Substrate | Base layer, Foundation, Underlying layer |
 
 If any of these appear in the output, the README fails its own rules.
+
+## State of the project (v3.1.0)
+
+| Status | Item |
+| --- | --- |
+| Shipped | 5-stage pipeline with hard gates between stages |
+| Shipped | Chorus brain-jam engine (replaced m2-brainstorm in v3.0.0) |
+| Shipped | Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic (v3.1.0) |
+| Shipped | Single-provider fallbacks when only one API key is set |
+| Shipped | 2-round dialogue synthesis (`--max-rounds 2`) |
+| Draft | Cast recipe at `skills/brain-jam/recipes/grfp-readme.json` |
+| Missing | CI workflows (no `.github/workflows/`) |
 
 ## Quality targets
 
 | Metric | Target |
 | --- | --- |
 | Flesch-Kincaid | Grade 8-10 |
-| Time to Joy | 4-5 commands (honest count, see Quick Start) |
+| Time to Joy | 5 commands (honest count, see Quick Start) |
 | Visual density | 1 per 300 words |
-| Badge count | 5-7 max |
+| Badge count | 5 max |
 
 ## When NOT to use this
 
 - **You want full creative control.** The pipeline enforces structure. It will fight you.
 - **Your project is trivial.** A 20-line script does not need a 5-phase pipeline.
-- **You need speed.** Each phase takes minutes. The brain-jam stage alone is 3-5 minutes wallclock with critique on.
+- **You need speed.** Each phase takes minutes. The brain-jam stage alone is 3-9 minutes wallclock with critique on.
 - **You hate opinionated tools.** The opinions are baked in.
 - **You want a general-purpose AI conversation.** Ask Claude or GPT directly. The plugin's value is exit criteria, not chat fluency.
 
@@ -208,9 +236,9 @@ If any of these appear in the output, the README fails its own rules.
 
 - Claude Code 1.0 or later
 - Chorus plugin symlinked at `~/.claude/skills/chorus` (required for `/brain-jam`)
-- Deno (required — Chorus launcher shells out to `deno run`)
+- Deno (required - Chorus launcher shells out to `deno run`)
 - At least one of `GEMINI_API_KEY` or `MINIMAX_API_KEY` in environment or `~/.claude/skills/chorus/.env` (both preferred)
-- `claudikins-tool-executor` plugin (optional; enables graph-analysis tools for `/deep-dive` and `/crystal-ball`)
+- `claudikins-tool-executor` plugin or `codebase-memory` MCP (optional; enables graph-analysis tools for `/deep-dive` and `/crystal-ball`)
 
 ## License
 
@@ -218,4 +246,4 @@ If any of these appear in the output, the README fails its own rules.
 
 ---
 
-_Delve Index of this README: 0%. Pipeline run: 2026-05-27. Stages: deep-dive (2m), crystal-ball (1.5m), brain-jam (4m, critic unavailable per upstream JSON truncation), think-tank (3m), pen-wielding (5m)._
+_Delve Index of this README: 0%. Pipeline run: 2026-06-07. Stages: deep-dive (3m), crystal-ball (2m), brain-jam (9m, critic partial - round 2 JSON truncation), think-tank (2m), pen-wielding (4m)._
