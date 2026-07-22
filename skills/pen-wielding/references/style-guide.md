@@ -81,16 +81,18 @@ A lexicon token that is part of a **real proper noun** does not consume budgets.
 
 | Tier | Budget (total hits across the tier) | If over budget |
 | ---- | ----------------------------------- | -------------- |
-| **A** | **0** | Fail. Rewrite. |
-| **B** | **0–1** | Prefer 0. A second hit fails. |
-| **C** | **≤3** ("a couple") | Fourth hit fails. Trim the weakest. |
-| **D** | **≤5** | Sixth hit fails. Cut ceremony first. |
+| **A** | **0** | Fail. Rewrite. Any hit is actionable. |
+| **B** | **0–1** | Prefer 0. Count > 1 is actionable. |
+| **C** | **≤3** | Fourth hit fails. Trim the weakest. |
+| **D** | **≤8** | Soft-adj + connective ensemble; ninth hit fails. |
 
-Report the Delve Index as a quota line, e.g. `Delve Index: A0 B0 C2 D3 (pass)`.
+Report the Delve Index as a quota line, e.g. `Delve Index: A0 B0 C2 D5 (pass)`.
+
+Apply mockery and proper-noun exemptions **before** counting. Also skip identifier false friends: `API key` / `*_KEY` env names, hyphenated `*-key-*` path segments, and stage titles like `Deep Dive` when they name the GRFP command.
 
 ### Tier A — Hard ban (budget 0)
 
-Classic memes, empty ceremony, and marketing that always reads as machine.
+Classic memes, empty ceremony, and marketing that always reads as machine. Any hit is actionable.
 
 | Token | The Signal | Replacement |
 | ----- | ---------- | ----------- |
@@ -105,31 +107,44 @@ Classic memes, empty ceremony, and marketing that always reads as machine.
 | **Game-changer** | "Hyperbole." | Solves [specific problem] |
 | **Cutting-edge** | "Meaningless hyperbole." | Modern, Current, 2025-compatible |
 | **Empower** | "Marketing fluff." | Allow, Enable, Let |
-| **It's important to note** | "Throat-clear before the claim." | _Delete; write the claim_ |
-| **It's worth noting** | "Hedging runway." | _Delete; write the claim_ |
+| **It's important to note** / **It's worth noting** / **remember that it's essential** | "Throat-clear before the claim." | _Delete; write the claim_ |
 | **Plays a crucial role** | "Formulaic importance padding." | Does X / Causes Y / Controls Z |
-| **In today's … world/age** | "Empty opener." | _Delete the sentence_ |
-| **Embark** / **embark on a journey** | "Motivational travel metaphor." | Start, Begin, Run |
+| **In today's … world/age** / **fast-paced world** / **digital age** | "Empty opener." | _Delete the sentence_ |
+| **Embark** / **embark on a/this journey** | "Motivational travel metaphor." | Start, Begin, Run |
+| **Unlock the secrets/power/potential** | "Trailer-voice verb phrase." | Enable X; expose Y; show Z |
+| **Deep dive** / **let's dive** / **dive deep(er)** | "Sibling of delve." | Inspect, Trace, Read |
+| **Possibilities are endless** / **only time will tell** / **look no further** | "Fortune-cookie closer." | _Delete; state the concrete limit or next step_ |
+| **Whether you're a …** | "Fake audience panorama." | Name one audience |
+| **Here are N** (listicle opener) | "Template enumeration." | Lead with the first item or a claim |
+| **As an AI** | "Chatbot residue." | _Delete_ |
 
 ### Tier B — Prefer zero (budget 0–1)
 
-Strong tells. One accidental use can still sound human; a cluster does not.
+Strong tells. Count > 1 is actionable.
 
 | Token | The Signal | Replacement |
 | ----- | ---------- | ----------- |
 | **Foster** | "HR Handbook." | Encourage, Allow, Enable |
-| **Robust** | "Vague filler." | Fault-tolerant, Atomic, Idempotent |
-| **Navigating** / **navigate the complexities** | "Corporate waffle." | Using, Working with, Handling |
-| **Leverage** | "MBA speak." | Use, Apply, Employ |
 | **Harness** | "Motivational stand-in for use." | Use, Apply, Run |
-| **Showcase** | "Promotional verb." | Show, Demonstrate, List |
+| **Showcase** / **showcasing** | "Promotional verb." | Show, Demonstrate, List |
 | **Realm** | "Abstract framing." | Area, Domain, Topic |
-| **Utilize** | "Formal synonym for use." | Use |
-| **Unlock** | "Marketing twin of unleash." | Enable, Open, Expose |
-| **Holistic** | "Empty systems-thinking filler." | End-to-end, Whole-system, Across X |
+| **Navigate** / **navigating** / **navigate the complexities** | "Corporate waffle." | Using, Working with, Handling |
+| **Underscore** / **underscoring** | "Formal stand-in for show." | Show, Prove, Make clear |
 | **Pivotal** | "Inflated importance." | Key, Central, Required |
+| **Meticulous** | "Performative care." | Careful, Exact, Precise |
+| **Boast** (meaning "has") | "Tourism copy." | Has, Includes |
+| **Garner** | "Press-release verb." | Get, Earn, Draw |
+| **Beacon** | "Inspiration cliché." | Signal, Guide, Example |
+| **Nestled** | "Travel-blog participle." | In, Located in |
+| **Cornerstone** | "Foundation metaphor with no load." | Core, Basis, Required piece |
+| **Crucial role** / **vital role** | "Importance formula (short form)." | Does X / Controls Z |
+| **Shed light** / **pave the way** | "Stock discovery/progress metaphors." | Explain; enable; unblock |
+| **More than just** / **isn't just** / **not only** | "Fake profundity / triad setup." | Say the stronger claim directly |
+| **One thing is clear** / **at its core** / **in essence** | "Throat-clear summary." | State the claim |
+| **Key takeaway** / **picture this** | "Webinar transition." | State the takeaway; describe the scene |
+| **Holistic** | "Empty systems-thinking filler." | End-to-end, Whole-system, Across X |
 | **Multifaceted** | "Decorative complexity." | Complex, Varied, Has N parts |
-| **Underscore** | "Formal stand-in for show." | Show, Prove, Make clear |
+| **Unlock** (bare verb) | "Marketing twin of unleash." | Enable, Open, Expose |
 | **Load-bearing** | "Metaphor standing in for importance." | Critical, Essential, Required, Core |
 | **Reality check** | "Rhetorical pause with no content." | Verify, Confirm, Check against [facts] |
 | **Spine** | "Vague structural metaphor." | Core, Backbone, Main path, Structure |
@@ -137,40 +152,70 @@ Strong tells. One accidental use can still sound human; a cluster does not.
 
 ### Tier C — A couple OK (budget ≤3)
 
-Formal/ESL-overlap adjectives and verbs. Two or three across a long README is texture; a pile is AI.
+Formal/ESL-overlap adjectives, verbs, and connectives. Flag when total > 3.
 
 | Token | The Signal | Replacement |
 | ----- | ---------- | ----------- |
+| **Crucial** (standalone) | "Importance without stake." | Required, Blocking, Determines X |
 | **Comprehensive** | "Vague completeness claim." | Full, Complete, Covers X/Y/Z |
-| **Nuanced** | "Claimed subtlety, no detail." | Specific, Precise, Distinguish X from Y |
+| **Robust** | "Vague filler." | Fault-tolerant, Atomic, Idempotent |
+| **Leverage** | "MBA speak." | Use, Apply, Employ |
+| **Utilize** | "Formal synonym for use." | Use |
+| **Enhance** / **enhancing** | "Improve with no metric." | Improve X by Y |
+| **State-of-the-art** | "Hyperbole twin of cutting-edge." | Current; cite the actual technique |
+| **Vibrant** | "Travel-brochure adjective." | Concrete sensory or metric detail |
 | **Intricate** / **intricacies** | "Decorative complexity." | Complex, Detailed, Nested |
-| **Meticulous** | "Performative care." | Careful, Exact, Precise |
+| **Nuanced** | "Claimed subtlety, no detail." | Specific, Precise, Distinguish X from Y |
+| **Streamline** | "Vague process marketing." | Simplify, Cut steps, Automate |
+| **Facilitate** | "Help, with a suit on." | Help, Run, Allow |
 | **Bolster** | "Soft-focus strengthen." | Strengthen, Support, Improve |
 | **Myriad** | "Formal many." | Many, Several, N |
-| **Crucial** (standalone) | "Importance without stake." | Required, Blocking, Determines X |
-| **Streamline** | "Vague process marketing." | Simplify, Cut steps, Automate |
 | **Innovative** / **groundbreaking** / **transformative** | "Hyperbole cluster." | New, First to…, Changes X by Y |
 | **Notably** / **Importantly** (sentence openers) | "Throat-clear adverb." | _Delete opener; start with the claim_ |
-| **Dive deep** / **dive deeper** | "Sibling of delve." | Inspect, Trace, Read |
+| **Furthermore** / **Moreover** / **Additionally** (sentence-initial) | "Academic connective stack." | Also, And, or start the next sentence |
+| **Worth noting** | "Hedging runway (short)." | _Delete; write the claim_ |
+| **When it comes to** | "Hedging runway." | Name the subject |
+| **In conclusion** / **to sum up** / **in summary** / **ultimately** | "Textbook closer." | State the claim; end |
 
-### Tier D — Texture budget (budget ≤5)
+### Tier D — Soft texture (budget ≤8)
 
-Connectives and hedges humans use sparsely. AI stacks them. Cap the pile; do not purify to zero.
+Common intensifiers and empty praise. Useful once; AI stacks them. Flag when total > 8 (or treat > 5 as a soft warning while drafting).
 
 | Token | The Signal | Replacement |
 | ----- | ---------- | ----------- |
-| **Moreover** / **Furthermore** / **Additionally** (sentence-initial) | "Academic connective stack." | Also, And, or start the next sentence |
-| **Ultimately** / **In conclusion** / **In summary** | "Textbook closer." | State the claim; end |
-| **When it comes to** | "Hedging runway." | Name the subject |
-| **At the end of the day** | "Empty proverb." | _Delete_ |
-| **That being said** | "Fake turn." | But, Still |
+| **Important** / **essential** / **key** (adjective) | "Priority with no stake." | Required, Blocking, or drop |
+| **Powerful** / **great** | "Empty praise." | Name the capability or metric |
+| **Simply** / **easily** | "Hidden complexity denial." | Steps; constraints; failure modes |
+| **Efficient** / **flexible** / **scalable** / **intuitive** | "Brochure adjectives." | Cite cost, axis of change, or UX evidence |
+| **Modern** | "Chronology cosplay." | Year, standard, or dependency floor |
+| **Various** / **wide range** | "Vague plurality." | List N items or say "several" |
+| **At the end of the day** / **that being said** | "Empty proverb / fake turn." | _Delete_ / But, Still |
 | **Ensuring** / **ensures** (padding) | "Hedging verb." | Concrete verb for the action |
 | **Highlights** (as padding verb) | "Formal show." | Show, List, Point out |
 | **Synergy** / **paradigm** | "MBA nouns." | Name the concrete interaction |
 | **Actionable** / **best practices** | "Checklist cosplay." | Specific next step |
 | **Double-edged sword** | "Stock trade-off metaphor." | Name both sides |
-| **Vibrant** / **dynamic** / **bustling** | "Travel-brochure adjectives." | Concrete sensory or metric detail |
-| **Boast** (meaning "has") | "Tourism copy." | Has, Includes |
+| **Dynamic** / **bustling** | "Travel-brochure adjectives." | Concrete detail or metric |
+
+### Audit recipes (ripgrep)
+
+Run from the repo root. Raw counts include lexicon tables and mockery - subtract exemptions before judging.
+
+```bash
+# Tier A: any hit is actionable (after exemptions)
+rg -ic "delve|tapestry|testament|fast-paced world|digital age|possibilities are endless|only time will tell|look no further|whether you'?re a|embark on (a|this) journey|unlock the (secrets|power|potential)|deep dive|let'?s dive|here are \d+|as an ai|remember that it'?s essential" README.md
+
+# Tier B: count > 1 is actionable
+rg -io "landscape|realm|navigate|underscor|showcas|boast|meticulous|pivotal|garner|foster|elevate|unleash|harness|beacon|nestled|game-changer|cornerstone|crucial role|vital role|shed light|pave the way|more than just|isn'?t just|not only|one thing is clear|at its core|in essence|key takeaway|picture this" README.md | wc -l
+
+# Tier C: flag when total > 3
+rg -io "\bcrucial\b|comprehensive|\brobust\b|seamless|leverage|enhanc|cutting-edge|state-of-the-art|\bvibrant\b|intricat|nuanced|multifaceted|streamline|utilize|facilitate|^(furthermore|moreover|additionally),|worth noting|when it comes to|in conclusion|to sum up" README.md | wc -l
+
+# Tier D: flag when total > 8 (soft warning > 5)
+rg -io "\bimportant\b|\bessential\b|\bkey\b|powerful|\bsimply\b|\beasily\b|efficient|flexible|scalable|\bmodern\b|intuitive|\bvarious\b|wide range|\bgreat\b" README.md | wc -l
+```
+
+The tables above are authoritative when a token's tier differs from an older draft (e.g. `seamless` stays **A** here even if a looser audit regex groups it with C).
 
 ## 2. Sentence Structure Patterns
 
@@ -228,7 +273,7 @@ Pick ONE and stick to it throughout:
 | Visual density         | 1 per 300 words | Add code block/diagram |
 | Badge count            | 5-7             | Curate to essentials   |
 | Quick start visibility | < 30 seconds    | Move above the fold    |
-| Delve Index            | A0; B≤1; C≤3; D≤5 | Trim the over-budget tier |
+| Delve Index            | A0; B≤1; C≤3; D≤8 | Trim the over-budget tier |
 
 ## 6. Humanisation Patterns
 

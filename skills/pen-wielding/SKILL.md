@@ -47,7 +47,7 @@ Read the governance files to establish the form:
 
 - **Check every sentence** against the graded lexicon in `references/style-guide.md`
   - **Tier A budget 0** (hard fail on delve, seamless, unleash, …)
-  - **Tier B budget 0–1**, **Tier C ≤3**, **Tier D ≤5** (total hits per tier)
+  - **Tier B budget 0–1**, **Tier C ≤3**, **Tier D ≤8** (total hits per tier)
 - **Mockery exemption:** lexicon hits inside a *marked* anti-example do not consume budgets
   - Markers: strikethrough `~~…~~`, or a cue line (`delete` / `anti-example` / `ai slop` / `tier pile` / `exists to delete` / `do not ship` / `bad:`), plus annotation tables that only catalogue that quote
   - Unlabeled blockquotes and scare-quote irony still count
@@ -273,7 +273,7 @@ Insert specific placeholders for visuals identified in `think-tank`:
 | Visual density         | 1 per 300 words | Add code block/diagram |
 | Badge count            | 5-7             | Curate to essentials   |
 | Quick start visibility | < 30 seconds    | Move above the fold    |
-| Delve Index            | A0; B≤1; C≤3; D≤5 | Trim the over-budget tier |
+| Delve Index            | A0; B≤1; C≤3; D≤8 | Trim the over-budget tier |
 
 ---
 

@@ -7,7 +7,7 @@
   <a href="https://github.com/anthropics/claude-code"><img src="https://img.shields.io/badge/Claude_Code-Plugin-5A67D8?style=flat-square" alt="Claude Code Plugin"></a>
   <img src="https://img.shields.io/badge/version-3.1.0-blue?style=flat-square" alt="Version 3.1.0">
   <img src="https://img.shields.io/badge/Critic_Voice-Always--on-9F7AEA?style=flat-square" alt="Critic Voice: Always-on">
-  <img src="https://img.shields.io/badge/Delve_Index-A0_B≤1_C≤3_D≤5-brightgreen?style=flat-square" alt="Delve Index graded budgets">
+  <img src="https://img.shields.io/badge/Delve_Index-A0_B≤1_C≤3_D≤8-brightgreen?style=flat-square" alt="Delve Index graded budgets">
 </p>
 
 # Github Readme for Perfectionists
@@ -33,26 +33,26 @@ Delve Index for shipping prose below: **A0 B0 C0 D0 (pass)**.
 | In today's digital age / it's important to note / delve / seamless / unleashing / plays a crucial role | **A** (budget 0) |
 | harnessing / multifaceted / pivotal | **B** (budget 0-1) |
 | _(none left once A/B cut)_ | **C** (budget ≤3) |
-| furthermore / ultimately / when it comes to / synergy / actionable | **D** (budget ≤5) |
+| furthermore / ultimately / when it comes to / synergy / actionable | **C/D** (see graded tables) |
 
 **What ships:**
 
-> This plugin writes READMEs. Tier A is a hard ban. Tier B allows one slip. Tier C allows a couple. Tier D caps connective texture at five. Three sentence patterns force specifics. A third voice (when keys exist) attacks weak claims before you ship.
+> This plugin writes READMEs. Tier A is a hard ban. Tier B allows one slip. Tier C allows a couple. Tier D caps soft adjectives and leftover ceremony at eight. Three sentence patterns force specifics. A third voice (when keys exist) attacks weak claims before you ship.
 
 ## The graded lexicon
 
 Flat zero-tolerance lists make prose sound machine-cleaned. Pen-wielding counts hits in shipping prose only.
 
-**Exempt from budgets:** the Tier A-D tables themselves; Delve Index badge/quota chrome; *marked* mockery (strikethrough `~~…~~`, or a cue like `delete` / `anti-example` / `ai slop` / `tier pile` on the line above, plus annotation tables that only catalogue that quote); and **proper nouns** (real product, company, person, place, work title, or code identifier that happens to contain a lexicon token - prefer canonical casing/link/backticks; generic reuse next to the name still counts). Unlabeled quotes still count. Your own filler sentences next to a joke or a brand name still count.
+**Exempt from budgets:** the Tier A-D tables themselves; Delve Index badge/quota chrome; *marked* mockery (strikethrough `~~…~~`, or a cue like `delete` / `anti-example` / `ai slop` / `tier pile` on the line above, plus annotation tables that only catalogue that quote); and **proper nouns** (real product, company, person, place, work title, or code identifier that happens to contain a lexicon token - prefer canonical casing/link/backticks; generic reuse next to the name still counts). Also skip `API key` / `*_KEY` env names and the `Deep Dive` stage title when they are identifiers. Unlabeled quotes still count. Your own filler sentences next to a joke or a brand name still count.
 
 | Tier | Budget | Fail when |
 | --- | --- | --- |
 | **A** | **0** | Any hit |
-| **B** | **0-1** | Second hit |
-| **C** | **≤3** | Fourth hit |
-| **D** | **≤5** | Sixth hit |
+| **B** | **0-1** | Count > 1 |
+| **C** | **≤3** | Count > 3 |
+| **D** | **≤8** | Count > 8 (soft warn > 5) |
 
-Canonical source: `skills/pen-wielding/references/style-guide.md`. Report format: `Delve Index: A# B# C# D# (pass|fail)`.
+Canonical source: `skills/pen-wielding/references/style-guide.md` (includes ripgrep audit recipes). Report format: `Delve Index: A# B# C# D# (pass|fail)`.
 
 ### Tier A - hard ban (0)
 
@@ -69,28 +69,42 @@ Canonical source: `skills/pen-wielding/references/style-guide.md`. Report format
 | Game-changer | Solves [specific problem] |
 | Cutting-edge | Modern, Current |
 | Empower | Allow, Enable, Let |
-| It's important to note / It's worth noting | Delete; write the claim |
+| It's important to note / It's worth noting / remember that it's essential | Delete; write the claim |
 | Plays a crucial role | Does X / Causes Y / Controls Z |
-| In today's … world/age | Delete the sentence |
-| Embark / embark on a journey | Start, Begin, Run |
+| In today's … world/age / fast-paced world / digital age | Delete the sentence |
+| Embark / embark on a/this journey | Start, Begin, Run |
+| Unlock the secrets/power/potential | Enable X; expose Y; show Z |
+| Deep dive / let's dive / dive deep(er) | Inspect, Trace, Read |
+| Possibilities are endless / only time will tell / look no further | Delete; state the limit or next step |
+| Whether you're a … | Name one audience |
+| Here are N (listicle opener) | Lead with the first item or a claim |
+| As an AI | Delete |
 
 ### Tier B - prefer zero (0-1)
 
 | Word | Replacement |
 | --- | --- |
 | Foster | Encourage, Allow |
-| Robust | Fault-tolerant, Atomic |
-| Navigating / navigate the complexities | Using, Working with |
-| Leverage | Use, Apply, Employ |
 | Harness | Use, Apply, Run |
-| Showcase | Show, Demonstrate, List |
+| Showcase / showcasing | Show, Demonstrate, List |
 | Realm | Area, Domain, Topic |
-| Utilize | Use |
-| Unlock | Enable, Open, Expose |
-| Holistic | End-to-end, Whole-system, Across X |
+| Navigate / navigating | Using, Working with |
+| Underscore / underscoring | Show, Prove, Make clear |
 | Pivotal | Key, Central, Required |
+| Meticulous | Careful, Exact, Precise |
+| Boast (meaning "has") | Has, Includes |
+| Garner | Get, Earn, Draw |
+| Beacon | Signal, Guide, Example |
+| Nestled | In, Located in |
+| Cornerstone | Core, Basis, Required piece |
+| Crucial role / vital role | Does X / Controls Z |
+| Shed light / pave the way | Explain; enable; unblock |
+| More than just / isn't just / not only | Say the stronger claim directly |
+| One thing is clear / at its core / in essence | State the claim |
+| Key takeaway / picture this | State the takeaway; describe the scene |
+| Holistic | End-to-end, Whole-system, Across X |
 | Multifaceted | Complex, Varied, Has N parts |
-| Underscore | Show, Prove, Make clear |
+| Unlock (bare verb) | Enable, Open, Expose |
 | Load-bearing | Critical, Essential, Required, Core |
 | Reality check | Verify, Confirm, Check against [facts] |
 | Spine | Core, Backbone, Main path, Structure |
@@ -100,34 +114,44 @@ Canonical source: `skills/pen-wielding/references/style-guide.md`. Report format
 
 | Word | Replacement |
 | --- | --- |
+| Crucial (standalone) | Required, Blocking, Determines X |
 | Comprehensive | Full, Complete, Covers X/Y/Z |
-| Nuanced | Specific, Precise, Distinguish X from Y |
+| Robust | Fault-tolerant, Atomic |
+| Leverage | Use, Apply, Employ |
+| Utilize | Use |
+| Enhance / enhancing | Improve X by Y |
+| State-of-the-art | Current; cite the technique |
+| Vibrant | Concrete detail or metric |
 | Intricate / intricacies | Complex, Detailed, Nested |
-| Meticulous | Careful, Exact, Precise |
+| Nuanced | Specific, Precise, Distinguish X from Y |
+| Streamline | Simplify, Cut steps, Automate |
+| Facilitate | Help, Run, Allow |
 | Bolster | Strengthen, Support, Improve |
 | Myriad | Many, Several, N |
-| Crucial (standalone) | Required, Blocking, Determines X |
-| Streamline | Simplify, Cut steps, Automate |
 | Innovative / groundbreaking / transformative | New, First to…, Changes X by Y |
 | Notably / Importantly (openers) | Delete opener; start with the claim |
-| Dive deep / dive deeper | Inspect, Trace, Read |
+| Furthermore / Moreover / Additionally (sentence-initial) | Also, And, or start next sentence |
+| Worth noting | Delete; write the claim |
+| When it comes to | Name the subject |
+| In conclusion / to sum up / in summary / ultimately | State the claim; end |
 
-### Tier D - texture budget (≤5)
+### Tier D - soft texture (≤8)
 
 | Word | Replacement |
 | --- | --- |
-| Moreover / Furthermore / Additionally (sentence-initial) | Also, And, or start next sentence |
-| Ultimately / In conclusion / In summary | State the claim; end |
-| When it comes to | Name the subject |
-| At the end of the day | Delete |
-| That being said | But, Still |
+| Important / essential / key (adjective) | Required, Blocking, or drop |
+| Powerful / great | Name the capability or metric |
+| Simply / easily | Steps; constraints; failure modes |
+| Efficient / flexible / scalable / intuitive | Cite cost, axis, or evidence |
+| Modern | Year, standard, or dependency floor |
+| Various / wide range | List N items or say "several" |
+| At the end of the day / that being said | Delete / But, Still |
 | Ensuring / ensures (padding) | Concrete verb for the action |
 | Highlights (padding verb) | Show, List, Point out |
 | Synergy / paradigm | Name the concrete interaction |
 | Actionable / best practices | Specific next step |
 | Double-edged sword | Name both sides |
-| Vibrant / dynamic / bustling | Concrete detail or metric |
-| Boast (meaning "has") | Has, Includes |
+| Dynamic / bustling | Concrete detail or metric |
 
 ## Quick Start (the honest list)
 
@@ -224,7 +248,7 @@ When the critic fails (missing API keys, model timeout, JSON truncation, argdown
 
 The writing stage applies four governance files plus a pre-write critique check:
 
-- **style-guide.md** - graded lexicon (A0 / B≤1 / C≤3 / D≤5), three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
+- **style-guide.md** - graded lexicon (A0 / B≤1 / C≤3 / D≤8), three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
 - **structural-templates.md** - section ordering by project type, results tables, do/don't patterns
 - **visual-engineering.md** - mermaid diagrams, ASCII progress bars, visual density floor of 1 per 300 words
 - **anti-patterns.md** - writing anti-patterns (passive voice, hedging, generic headers), research anti-patterns, quality checklist
