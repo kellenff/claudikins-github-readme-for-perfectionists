@@ -8,8 +8,8 @@
 
 You are strictly FORBIDDEN from using these tokens. If the LLM predicts them, stop and rewrite.
 
-| Banned Word       | The Signal                             | Replacement                              |
-| ----------------- | -------------------------------------- | ---------------------------------------- |
+| Banned Word                | The Signal                             | Replacement                              |
+| -------------------------- | -------------------------------------- | ---------------------------------------- |
 | **Delve**         | "I don't know the specifics."          | Analyze, Investigate, Query, Check       |
 | **Tapestry**      | "I am writing creative fiction."       | Network, Stack, System, Graph            |
 | **Seamless**      | "I am lying about complexity."         | Compatible, Integrated, Automated        |
@@ -27,8 +27,20 @@ You are strictly FORBIDDEN from using these tokens. If the LLM predicts them, st
 | **Empower**       | "Marketing fluff."                     | Allow, Enable, Let                       |
 | **Spine**         | "Vague structural metaphor."           | Core, Backbone, Main path, Structure     |
 | **Substrate**     | "Pseudo-technical filler."             | Base layer, Foundation, Underlying layer |
-| **Load-bearing**  | "Metaphor standing in for importance." | Critical, Essential, Required, Core      |
-| **Reality check** | "Rhetorical pause with no content."    | Verify, Confirm, Check against [facts]   |
+| **Load-bearing**           | "Metaphor standing in for importance." | Critical, Essential, Required, Core      |
+| **Reality check**          | "Rhetorical pause with no content."    | Verify, Confirm, Check against [facts]   |
+| **Underscore**             | "Formal stand-in for show."            | Show, Prove, Make clear                  |
+| **Pivotal**                | "Inflated importance."                 | Key, Central, Required                   |
+| **Multifaceted**           | "Decorative complexity."               | Complex, Varied, Has N parts             |
+| **Comprehensive**          | "Vague completeness claim."            | Full, Complete, Covers X/Y/Z             |
+| **Harness**                | "Motivational stand-in for use."       | Use, Apply, Run                          |
+| **Showcase**               | "Promotional verb."                    | Show, Demonstrate, List                  |
+| **Realm**                  | "Abstract framing."                    | Area, Domain, Topic                      |
+| **Utilize**                | "Formal synonym for use."              | Use                                      |
+| **Unlock**                 | "Marketing twin of unleash."           | Enable, Open, Expose                     |
+| **Holistic**               | "Empty systems-thinking filler."       | End-to-end, Whole-system, Across X       |
+| **It's important to note** | "Throat-clear before the claim."       | _Delete; write the claim_                |
+| **Plays a crucial role**   | "Formulaic importance padding."        | Does X / Causes Y / Controls Z           |
 
 ## 2. Sentence Structure Patterns
 
