@@ -16,9 +16,9 @@ ESLint for prose. A Claude Code plugin that treats "delve" as a syntax error and
 
 ## Proof this works (or does not)
 
-This README was written by running the plugin's own pipeline on this repository on 2026-06-07. The five stages produced: deep-dive (Reality Report, 132 lines), crystal-ball (9 roadmap candidates), brain-jam (3 angles via Gemini synth + MiniMax pragmatist, 2 rounds), think-tank (6 exemplars scored against a rubric), pen-wielding (this file).
+This README was written by running the plugin's own pipeline on this repository on 2026-07-22. The five stages produced: deep-dive (Reality Report, file-heuristic fallback), crystal-ball (roadmap candidates across performance, debt, features, security), brain-jam (Set List only: Chorus resolved but `GEMINI_API_KEY` / `MINIMAX_API_KEY` were unset, so the critic did not run), think-tank (6 exemplars scored), pen-wielding (this file).
 
-The critic returned round 1 output and failed on round 2 with JSON truncation. The PARTIAL fallback rendered Watch-Outs and Undefended Assumptions from the surviving round and footnoted the gap. The dialogue was not aborted. Transcript: `.claude/grfp/brainstorm-transcript-20260607T171259.json`.
+Staging lives under `.claude/grfp/`. Brain-jam recorded `CAST=NO_KEYS` and continued with Critique unavailable. That is the documented non-terminating path when Stage 4 cannot call a provider.
 
 Banned-word count in the source above: 0.
 
@@ -26,7 +26,7 @@ Banned-word count in the source above: 0.
 
 The kind of sentence this plugin exists to delete:
 
-> ~~This library provides a seamless way to delve into documentation generation, unleashing the full potential of your README workflow.~~
+> ~~It's important to note that this library provides a seamless way to delve into documentation generation, unleashing the full potential of your README workflow while harnessing a multifaceted, pivotal approach that plays a crucial role in shaping outcomes.~~
 
 The kind of sentence this plugin ships:
 
@@ -54,7 +54,7 @@ curl -fsSL https://deno.land/install.sh | sh
 /claudikins-github-readme-for-perfectionists:grfp
 ```
 
-Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Stage 4 needs the Chorus symlink, Deno, and **at least one** of `GEMINI_API_KEY` or `MINIMAX_API_KEY`. Both keys give a cross-provider cast (Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic); a single key falls back to that provider for all voices. Deno is required - Chorus does not ship a standalone binary.
+Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Stage 4 needs the Chorus symlink, Deno, and **at least one** of `GEMINI_API_KEY` or `MINIMAX_API_KEY`. Both keys give a cross-provider cast (Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic); a single key falls back to that provider for all voices. Deno is required - Chorus does not ship a standalone binary. Without keys, Stage 4 writes Critique unavailable and later stages still run.
 
 Optional: install `claudikins-tool-executor` or enable `codebase-memory` MCP for graph-analysis tools (`search_graph`, `trace_path`, `get_architecture`) that improve `/deep-dive` and `/crystal-ball` on real codebases. Without either, those stages fall back to file-based heuristics.
 
@@ -101,9 +101,8 @@ Example of what `brain-jam.md` looks like when the critic succeeds:
 ````markdown
 ## Watch-Outs (anti-steelman per voice)
 
-**Where the "deep tech" voice was weakest:**
-- Round 2: "The argdown grounding only matters if the reader already
-  knows what a Dung extension is; otherwise it reads as jargon proof."
+**Where the "synth" voice was weakest:**
+- Round 1: "Assumes cold readers care about stage counts."
 
 ## Undefended Assumptions
 
@@ -114,15 +113,15 @@ Example of what `brain-jam.md` looks like when the critic succeeds:
 
 ```argdown
 [Hook]: The README is the proof of the tool
-  +> [Recursion]: It was written by the pipeline
-  -> [Bloat]: Five stages signals over-engineering
+  + Recursion claim with dated artifacts
+  - Bloat risk if every stage dumps jargon
 ```
 
 **Surviving arguments (IN):** Hook, Recursion
 **Defeated arguments (OUT):** Bloat
 ````
 
-When the critic fails (model timeout, JSON truncation, argdown parse error), the adapter renders Block 1 (Set List) only or PARTIAL blocks from surviving rounds and footnotes which rounds failed. The dialogue is never aborted. Round 2 of this README's brain-jam stage hit JSON truncation; round 1 critique still shaped the draft.
+When the critic fails (missing API keys, model timeout, JSON truncation, argdown parse error), the adapter renders Block 1 (Set List) only or PARTIAL blocks from surviving rounds and footnotes which rounds failed. The dialogue is never aborted for critic loss alone. This dogfood run hit `NO_KEYS` before any round started; Set List still shaped the draft.
 
 ## What pen-wielding enforces
 
@@ -226,8 +225,10 @@ If any of these appear in the output, the README fails its own rules.
 | Shipped | Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic (v3.1.0) |
 | Shipped | Single-provider fallbacks when only one API key is set |
 | Shipped | 2-round dialogue synthesis (`--max-rounds 2`) |
+| Shipped | Anti-Slop lexicon at 31 banned tokens (this branch) |
 | Draft | Cast recipe at `skills/brain-jam/recipes/grfp-readme.json` |
 | Missing | CI workflows (no `.github/workflows/`) |
+| Missing | Offline / no-key brain-jam path beyond Critique unavailable |
 
 ## Quality targets
 
@@ -236,7 +237,8 @@ If any of these appear in the output, the README fails its own rules.
 | Flesch-Kincaid | Grade 8-10 |
 | Time to Joy | 5 commands (honest count, see Quick Start) |
 | Visual density | 1 per 300 words |
-| Badge count | 5 max |
+| Badge count | 5-7 |
+| Delve Index | 0 banned tokens in shipping prose |
 
 ## When NOT to use this
 
@@ -260,4 +262,4 @@ If any of these appear in the output, the README fails its own rules.
 
 ---
 
-_Delve Index of this README: 0%. Pipeline run: 2026-06-07. Stages: deep-dive (3m), crystal-ball (2m), brain-jam (9m, critic partial - round 2 JSON truncation), think-tank (2m), pen-wielding (4m)._
+_Delve Index of this README: 0%. Pipeline run: 2026-07-22. Stages: deep-dive (file-heuristic), crystal-ball (content-level), brain-jam (NO_KEYS / Critique unavailable), think-tank (WebSearch), pen-wielding (lexicon at 31)._
