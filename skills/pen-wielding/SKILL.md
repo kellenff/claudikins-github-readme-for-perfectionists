@@ -24,7 +24,7 @@ Read the outputs from the preparatory skills:
 
 Read the governance files to establish the form:
 
-1. `references/style-guide.md` (Anti-Slop rules, Banned Words, Humanisation Patterns, Reusable Phrases)
+1. `references/style-guide.md` (Anti-Slop rules, Graded Lexicon A–D, Humanisation Patterns, Reusable Phrases)
 2. `references/structural-templates.md` (Section templates, Results/Metrics tables, Do/Don't patterns)
 3. `references/visual-engineering.md` (Density rules, diagrams, ASCII visualisations)
 4. `references/anti-patterns.md` (Final checklist, Writing/Research anti-patterns)
