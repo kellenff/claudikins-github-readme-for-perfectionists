@@ -45,7 +45,10 @@ Read the governance files to establish the form:
 
 ### The "Anti-Slop" Filter
 
-- **Check every sentence** against the Banned Words list (No "Delve", "Seamless", "Unleash")
+- **Check every sentence** against the graded lexicon in `references/style-guide.md`
+  - **Tier A budget 0** (hard fail on delve, seamless, unleash, …)
+  - **Tier B budget 0–1**, **Tier C ≤3**, **Tier D ≤5** (total hits per tier)
+- Report `Delve Index: A# B# C# D# (pass|fail)` in the README proof footer
 - **Never use "The Problem / The Solution" framing** - it's lazy and cliched
 - **Enforce Patterns:**
   - Use **"The Hook"** (Pattern A) in the _Description_
@@ -262,7 +265,7 @@ Insert specific placeholders for visuals identified in `think-tank`:
 | Visual density         | 1 per 300 words | Add code block/diagram |
 | Badge count            | 5-7             | Curate to essentials   |
 | Quick start visibility | < 30 seconds    | Move above the fold    |
-| Delve Index            | 0               | Remove banned words    |
+| Delve Index            | A0; B≤1; C≤3; D≤5 | Trim the over-budget tier |
 
 ---
 

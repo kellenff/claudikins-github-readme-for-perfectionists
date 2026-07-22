@@ -20,7 +20,7 @@ This README was written by running the plugin's own pipeline on this repository 
 
 Staging lives under `.claude/grfp/`. Brain-jam recorded `CAST=NO_KEYS` and continued with Critique unavailable. That is the documented non-terminating path when Stage 4 cannot call a provider.
 
-Banned-word count in the source above: 0.
+Banned-word quota in the source above: Delve Index A0 B0 C0 D0 (pass).
 
 ## Before and after
 
@@ -30,7 +30,7 @@ The kind of sentence this plugin exists to delete:
 
 The kind of sentence this plugin ships:
 
-> This plugin generates README files. It bans 31 filler words, enforces three sentence patterns that require specifics, and runs a third voice that flags weak claims the writer cannot see.
+> This plugin generates README files. It grades filler into Tier A–D budgets (hard ban / 0–1 / a couple / texture cap), enforces three sentence patterns that require specifics, and runs a third voice that flags weak claims the writer cannot see.
 
 ## Quick Start (the honest list)
 
@@ -127,7 +127,7 @@ When the critic fails (missing API keys, model timeout, JSON truncation, argdown
 
 The writing stage applies four governance files plus a pre-write critique check:
 
-- **style-guide.md** - 31 banned words, three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
+- **style-guide.md** - graded Anti-Slop lexicon (Tier A–D budgets), three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
 - **structural-templates.md** - section ordering by project type, results tables, do/don't patterns
 - **visual-engineering.md** - mermaid diagrams, ASCII progress bars, visual density floor of 1 per 300 words
 - **anti-patterns.md** - writing anti-patterns (passive voice, hedging, generic headers), research anti-patterns, quality checklist
@@ -178,43 +178,93 @@ Write TO readers, not AT them.
 
 </details>
 
-## The banned words
+## The graded lexicon
+
+Flat zero-tolerance lists scrub texture until prose sounds machine-cleaned. Hits are counted in shipping prose only (not this table, not strikethrough demos, not the Delve Index badge).
+
+| Tier | Budget | Rule |
+| --- | --- | --- |
+| **A** | **0** | Hard fail. Rewrite. |
+| **B** | **0–1** | Prefer zero; a second hit fails. |
+| **C** | **≤3** | A couple is fine; a fourth fails. |
+| **D** | **≤5** | Texture cap; cut ceremony first. |
+
+### Tier A — hard ban (0)
 
 | Word | Replacement |
 | --- | --- |
 | Delve | Analyse, Check, Query |
+| Tapestry | System, Network, Stack |
 | Seamless | Compatible, Integrated |
 | Unleash | Run, Execute, Enable |
-| Robust | Fault-tolerant, Atomic |
-| Tapestry | System, Network, Stack |
-| Landscape | Delete the sentence |
 | Elevate | Improve (with a metric) |
+| Landscape | Delete the sentence |
 | Testament | Proof, Example |
-| Foster | Encourage, Allow |
 | Spearhead | Lead, Direct |
 | Game-changer | Solves [specific problem] |
-| Navigating | Using, Working with |
-| Leverage | Use, Apply, Employ |
 | Cutting-edge | Modern, Current |
 | Empower | Allow, Enable, Let |
-| Spine | Core, Backbone, Main path, Structure |
-| Substrate | Base layer, Foundation, Underlying layer |
-| Load-bearing | Critical, Essential, Required, Core |
-| Reality check | Verify, Confirm, Check against [facts] |
-| Underscore | Show, Prove, Make clear |
-| Pivotal | Key, Central, Required |
-| Multifaceted | Complex, Varied, Has N parts |
-| Comprehensive | Full, Complete, Covers X/Y/Z |
+| It's important to note / It's worth noting | Delete; write the claim |
+| Plays a crucial role | Does X / Causes Y / Controls Z |
+| In today's … world/age | Delete the sentence |
+| Embark / embark on a journey | Start, Begin, Run |
+
+### Tier B — prefer zero (0–1)
+
+| Word | Replacement |
+| --- | --- |
+| Foster | Encourage, Allow |
+| Robust | Fault-tolerant, Atomic |
+| Navigating / navigate the complexities | Using, Working with |
+| Leverage | Use, Apply, Employ |
 | Harness | Use, Apply, Run |
 | Showcase | Show, Demonstrate, List |
 | Realm | Area, Domain, Topic |
 | Utilize | Use |
 | Unlock | Enable, Open, Expose |
 | Holistic | End-to-end, Whole-system, Across X |
-| It's important to note | Delete; write the claim |
-| Plays a crucial role | Does X / Causes Y / Controls Z |
+| Pivotal | Key, Central, Required |
+| Multifaceted | Complex, Varied, Has N parts |
+| Underscore | Show, Prove, Make clear |
+| Load-bearing | Critical, Essential, Required, Core |
+| Reality check | Verify, Confirm, Check against [facts] |
+| Spine | Core, Backbone, Main path, Structure |
+| Substrate | Base layer, Foundation, Underlying layer |
 
-If any of these appear in the output, the README fails its own rules.
+### Tier C — a couple OK (≤3)
+
+| Word | Replacement |
+| --- | --- |
+| Comprehensive | Full, Complete, Covers X/Y/Z |
+| Nuanced | Specific, Precise, Distinguish X from Y |
+| Intricate / intricacies | Complex, Detailed, Nested |
+| Meticulous | Careful, Exact, Precise |
+| Bolster | Strengthen, Support, Improve |
+| Myriad | Many, Several, N |
+| Crucial (standalone) | Required, Blocking, Determines X |
+| Streamline | Simplify, Cut steps, Automate |
+| Innovative / groundbreaking / transformative | New, First to…, Changes X by Y |
+| Notably / Importantly (openers) | Delete opener; start with the claim |
+| Dive deep / dive deeper | Inspect, Trace, Read |
+
+### Tier D — texture budget (≤5)
+
+| Word | Replacement |
+| --- | --- |
+| Moreover / Furthermore / Additionally (sentence-initial) | Also, And, or start next sentence |
+| Ultimately / In conclusion / In summary | State the claim; end |
+| When it comes to | Name the subject |
+| At the end of the day | Delete |
+| That being said | But, Still |
+| Ensuring / ensures (padding) | Concrete verb for the action |
+| Highlights (padding verb) | Show, List, Point out |
+| Synergy / paradigm | Name the concrete interaction |
+| Actionable / best practices | Specific next step |
+| Double-edged sword | Name both sides |
+| Vibrant / dynamic / bustling | Concrete detail or metric |
+| Boast (meaning "has") | Has, Includes |
+
+Over budget on any tier fails the README. Report `Delve Index: A# B# C# D# (pass|fail)`.
 
 ## State of the project (v3.1.0)
 
@@ -225,7 +275,7 @@ If any of these appear in the output, the README fails its own rules.
 | Shipped | Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic (v3.1.0) |
 | Shipped | Single-provider fallbacks when only one API key is set |
 | Shipped | 2-round dialogue synthesis (`--max-rounds 2`) |
-| Shipped | Anti-Slop lexicon at 31 banned tokens (this branch) |
+| Shipped | Graded Anti-Slop lexicon (Tier A–D budgets; this branch) |
 | Draft | Cast recipe at `skills/brain-jam/recipes/grfp-readme.json` |
 | Missing | CI workflows (no `.github/workflows/`) |
 | Missing | Offline / no-key brain-jam path beyond Critique unavailable |
@@ -238,7 +288,7 @@ If any of these appear in the output, the README fails its own rules.
 | Time to Joy | 5 commands (honest count, see Quick Start) |
 | Visual density | 1 per 300 words |
 | Badge count | 5-7 |
-| Delve Index | 0 banned tokens in shipping prose |
+| Delve Index | A0; B≤1; C≤3; D≤5 |
 
 ## When NOT to use this
 
@@ -262,4 +312,4 @@ If any of these appear in the output, the README fails its own rules.
 
 ---
 
-_Delve Index of this README: 0%. Pipeline run: 2026-07-22. Stages: deep-dive (file-heuristic), crystal-ball (content-level), brain-jam (NO_KEYS / Critique unavailable), think-tank (WebSearch), pen-wielding (lexicon at 31)._
+_Delve Index of this README: A0 B0 C0 D0 (pass). Pipeline run: 2026-07-22. Stages: deep-dive (file-heuristic), crystal-ball (content-level), brain-jam (NO_KEYS / Critique unavailable), think-tank (WebSearch), pen-wielding (graded lexicon A–D)._

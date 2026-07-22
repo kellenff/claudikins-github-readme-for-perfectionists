@@ -4,43 +4,104 @@
 
 **Voice:** Senior Engineer. Cynical, precise, allergic to marketing.
 
-## 1. The Anti-Cliché Lexicon (BANNED WORDS)
+## 1. The Anti-Cliché Lexicon (GRADED)
 
-You are strictly FORBIDDEN from using these tokens. If the LLM predicts them, stop and rewrite.
+Flat zero-tolerance lists make prose sound scrubbed, not human. Use **tiers with budgets**. Count token hits in *shipping prose* only (exclude the lexicon tables themselves, intentional strikethrough demos, and badge labels that name the metric).
 
-| Banned Word                | The Signal                             | Replacement                              |
-| -------------------------- | -------------------------------------- | ---------------------------------------- |
-| **Delve**         | "I don't know the specifics."          | Analyze, Investigate, Query, Check       |
-| **Tapestry**      | "I am writing creative fiction."       | Network, Stack, System, Graph            |
-| **Seamless**      | "I am lying about complexity."         | Compatible, Integrated, Automated        |
-| **Unleash**       | "I am a marketing bot."                | Execute, Run, Enable, Start              |
-| **Elevate**       | "Corporate padding."                   | Improve, Optimize (must add metric)      |
-| **Landscape**     | "Zero information density."            | _Delete the sentence_                    |
-| **Testament**     | "Grandeur unearned."                   | Proof, Demonstration, Example            |
-| **Foster**        | "HR Handbook."                         | Encourage, Allow, Enable                 |
-| **Spearhead**     | "1990s Management."                    | Lead, Direct, First to implement         |
-| **Game-changer**  | "Hyperbole."                           | Solves [specific problem]                |
-| **Robust**        | "Vague filler."                        | Fault-tolerant, Atomic, Idempotent       |
-| **Navigating**    | "Corporate waffle."                    | Using, Working with, Handling            |
-| **Leverage**      | "MBA speak."                           | Use, Apply, Employ                       |
-| **Cutting-edge**  | "Meaningless hyperbole."               | Modern, Current, 2025-compatible         |
-| **Empower**       | "Marketing fluff."                     | Allow, Enable, Let                       |
-| **Spine**         | "Vague structural metaphor."           | Core, Backbone, Main path, Structure     |
-| **Substrate**     | "Pseudo-technical filler."             | Base layer, Foundation, Underlying layer |
-| **Load-bearing**           | "Metaphor standing in for importance." | Critical, Essential, Required, Core      |
-| **Reality check**          | "Rhetorical pause with no content."    | Verify, Confirm, Check against [facts]   |
-| **Underscore**             | "Formal stand-in for show."            | Show, Prove, Make clear                  |
-| **Pivotal**                | "Inflated importance."                 | Key, Central, Required                   |
-| **Multifaceted**           | "Decorative complexity."               | Complex, Varied, Has N parts             |
-| **Comprehensive**          | "Vague completeness claim."            | Full, Complete, Covers X/Y/Z             |
-| **Harness**                | "Motivational stand-in for use."       | Use, Apply, Run                          |
-| **Showcase**               | "Promotional verb."                    | Show, Demonstrate, List                  |
-| **Realm**                  | "Abstract framing."                    | Area, Domain, Topic                      |
-| **Utilize**                | "Formal synonym for use."              | Use                                      |
-| **Unlock**                 | "Marketing twin of unleash."           | Enable, Open, Expose                     |
-| **Holistic**               | "Empty systems-thinking filler."       | End-to-end, Whole-system, Across X       |
-| **It's important to note** | "Throat-clear before the claim."       | _Delete; write the claim_                |
-| **Plays a crucial role**   | "Formulaic importance padding."        | Does X / Causes Y / Controls Z           |
+### Budget rules
+
+| Tier | Budget (total hits across the tier) | If over budget |
+| ---- | ----------------------------------- | -------------- |
+| **A** | **0** | Fail. Rewrite. |
+| **B** | **0–1** | Prefer 0. A second hit fails. |
+| **C** | **≤3** ("a couple") | Fourth hit fails. Trim the weakest. |
+| **D** | **≤5** | Sixth hit fails. Cut ceremony first. |
+
+Report the Delve Index as a quota line, e.g. `Delve Index: A0 B0 C2 D3 (pass)`.
+
+### Tier A — Hard ban (budget 0)
+
+Classic memes, empty ceremony, and marketing that always reads as machine.
+
+| Token | The Signal | Replacement |
+| ----- | ---------- | ----------- |
+| **Delve** | "I don't know the specifics." | Analyze, Investigate, Query, Check |
+| **Tapestry** | "I am writing creative fiction." | Network, Stack, System, Graph |
+| **Seamless** | "I am lying about complexity." | Compatible, Integrated, Automated |
+| **Unleash** | "I am a marketing bot." | Execute, Run, Enable, Start |
+| **Elevate** | "Corporate padding." | Improve, Optimize (must add metric) |
+| **Landscape** | "Zero information density." | _Delete the sentence_ |
+| **Testament** | "Grandeur unearned." | Proof, Demonstration, Example |
+| **Spearhead** | "1990s Management." | Lead, Direct, First to implement |
+| **Game-changer** | "Hyperbole." | Solves [specific problem] |
+| **Cutting-edge** | "Meaningless hyperbole." | Modern, Current, 2025-compatible |
+| **Empower** | "Marketing fluff." | Allow, Enable, Let |
+| **It's important to note** | "Throat-clear before the claim." | _Delete; write the claim_ |
+| **It's worth noting** | "Hedging runway." | _Delete; write the claim_ |
+| **Plays a crucial role** | "Formulaic importance padding." | Does X / Causes Y / Controls Z |
+| **In today's … world/age** | "Empty opener." | _Delete the sentence_ |
+| **Embark** / **embark on a journey** | "Motivational travel metaphor." | Start, Begin, Run |
+
+### Tier B — Prefer zero (budget 0–1)
+
+Strong tells. One accidental use can still sound human; a cluster does not.
+
+| Token | The Signal | Replacement |
+| ----- | ---------- | ----------- |
+| **Foster** | "HR Handbook." | Encourage, Allow, Enable |
+| **Robust** | "Vague filler." | Fault-tolerant, Atomic, Idempotent |
+| **Navigating** / **navigate the complexities** | "Corporate waffle." | Using, Working with, Handling |
+| **Leverage** | "MBA speak." | Use, Apply, Employ |
+| **Harness** | "Motivational stand-in for use." | Use, Apply, Run |
+| **Showcase** | "Promotional verb." | Show, Demonstrate, List |
+| **Realm** | "Abstract framing." | Area, Domain, Topic |
+| **Utilize** | "Formal synonym for use." | Use |
+| **Unlock** | "Marketing twin of unleash." | Enable, Open, Expose |
+| **Holistic** | "Empty systems-thinking filler." | End-to-end, Whole-system, Across X |
+| **Pivotal** | "Inflated importance." | Key, Central, Required |
+| **Multifaceted** | "Decorative complexity." | Complex, Varied, Has N parts |
+| **Underscore** | "Formal stand-in for show." | Show, Prove, Make clear |
+| **Load-bearing** | "Metaphor standing in for importance." | Critical, Essential, Required, Core |
+| **Reality check** | "Rhetorical pause with no content." | Verify, Confirm, Check against [facts] |
+| **Spine** | "Vague structural metaphor." | Core, Backbone, Main path, Structure |
+| **Substrate** | "Pseudo-technical filler." | Base layer, Foundation, Underlying layer |
+
+### Tier C — A couple OK (budget ≤3)
+
+Formal/ESL-overlap adjectives and verbs. Two or three across a long README is texture; a pile is AI.
+
+| Token | The Signal | Replacement |
+| ----- | ---------- | ----------- |
+| **Comprehensive** | "Vague completeness claim." | Full, Complete, Covers X/Y/Z |
+| **Nuanced** | "Claimed subtlety, no detail." | Specific, Precise, Distinguish X from Y |
+| **Intricate** / **intricacies** | "Decorative complexity." | Complex, Detailed, Nested |
+| **Meticulous** | "Performative care." | Careful, Exact, Precise |
+| **Bolster** | "Soft-focus strengthen." | Strengthen, Support, Improve |
+| **Myriad** | "Formal many." | Many, Several, N |
+| **Crucial** (standalone) | "Importance without stake." | Required, Blocking, Determines X |
+| **Streamline** | "Vague process marketing." | Simplify, Cut steps, Automate |
+| **Innovative** / **groundbreaking** / **transformative** | "Hyperbole cluster." | New, First to…, Changes X by Y |
+| **Notably** / **Importantly** (sentence openers) | "Throat-clear adverb." | _Delete opener; start with the claim_ |
+| **Dive deep** / **dive deeper** | "Sibling of delve." | Inspect, Trace, Read |
+
+### Tier D — Texture budget (budget ≤5)
+
+Connectives and hedges humans use sparsely. AI stacks them. Cap the pile; do not purify to zero.
+
+| Token | The Signal | Replacement |
+| ----- | ---------- | ----------- |
+| **Moreover** / **Furthermore** / **Additionally** (sentence-initial) | "Academic connective stack." | Also, And, or start the next sentence |
+| **Ultimately** / **In conclusion** / **In summary** | "Textbook closer." | State the claim; end |
+| **When it comes to** | "Hedging runway." | Name the subject |
+| **At the end of the day** | "Empty proverb." | _Delete_ |
+| **That being said** | "Fake turn." | But, Still |
+| **Ensuring** / **ensures** (padding) | "Hedging verb." | Concrete verb for the action |
+| **Highlights** (as padding verb) | "Formal show." | Show, List, Point out |
+| **Synergy** / **paradigm** | "MBA nouns." | Name the concrete interaction |
+| **Actionable** / **best practices** | "Checklist cosplay." | Specific next step |
+| **Double-edged sword** | "Stock trade-off metaphor." | Name both sides |
+| **Vibrant** / **dynamic** / **bustling** | "Travel-brochure adjectives." | Concrete sensory or metric detail |
+| **Boast** (meaning "has") | "Tourism copy." | Has, Includes |
 
 ## 2. Sentence Structure Patterns
 
@@ -98,6 +159,7 @@ Pick ONE and stick to it throughout:
 | Visual density         | 1 per 300 words | Add code block/diagram |
 | Badge count            | 5-7             | Curate to essentials   |
 | Quick start visibility | < 30 seconds    | Move above the fold    |
+| Delve Index            | A0; B≤1; C≤3; D≤5 | Trim the over-budget tier |
 
 ## 6. Humanisation Patterns
 
@@ -110,7 +172,7 @@ Write TO readers, not AT them. These patterns build trust and engagement.
 | **Human-first address**      | Use "you" directly, speak TO the reader            | "This helps you..." not "This system enables users to..." |
 | **Conversational warmth**    | Casual but professional, no corporate-speak        | "We love your creative voice!"                            |
 | **Action-oriented language** | Active verbs, direct commands                      | "Design", "Create", "Plan" not "The system will..."       |
-| **Empowering assumptions**   | Assume reader competence while providing structure | Tips not mandates                                         |
+| **Competence assumptions**   | Assume reader competence while providing structure | Tips not mandates                                         |
 
 ### Confidence Framing
 
