@@ -30,7 +30,7 @@ The kind of sentence this plugin exists to delete:
 
 The kind of sentence this plugin ships:
 
-> This plugin generates README files. It bans 17 filler words, enforces three sentence patterns that require specifics, and runs a third voice that flags weak claims the writer cannot see.
+> This plugin generates README files. It bans 19 filler words, enforces three sentence patterns that require specifics, and runs a third voice that flags weak claims the writer cannot see.
 
 ## Quick Start (the honest list)
 
@@ -128,7 +128,7 @@ When the critic fails (model timeout, JSON truncation, argdown parse error), the
 
 The writing stage applies four governance files plus a pre-write critique check:
 
-- **style-guide.md** - 17 banned words, three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
+- **style-guide.md** - 19 banned words, three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
 - **structural-templates.md** - section ordering by project type, results tables, do/don't patterns
 - **visual-engineering.md** - mermaid diagrams, ASCII progress bars, visual density floor of 1 per 300 words
 - **anti-patterns.md** - writing anti-patterns (passive voice, hedging, generic headers), research anti-patterns, quality checklist
@@ -200,6 +200,8 @@ Write TO readers, not AT them.
 | Empower | Allow, Enable, Let |
 | Spine | Core, Backbone, Main path, Structure |
 | Substrate | Base layer, Foundation, Underlying layer |
+| Load-bearing | Critical, Essential, Required, Core |
+| Reality check | Verify, Confirm, Check against [facts] |
 
 If any of these appear in the output, the README fails its own rules.
 
