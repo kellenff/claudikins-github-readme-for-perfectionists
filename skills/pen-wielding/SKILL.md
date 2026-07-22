@@ -48,7 +48,11 @@ Read the governance files to establish the form:
 - **Check every sentence** against the graded lexicon in `references/style-guide.md`
   - **Tier A budget 0** (hard fail on delve, seamless, unleash, …)
   - **Tier B budget 0–1**, **Tier C ≤3**, **Tier D ≤5** (total hits per tier)
-- Report `Delve Index: A# B# C# D# (pass|fail)` in the README proof footer
+- **Mockery exemption:** lexicon hits inside a *marked* anti-example do not consume budgets
+  - Markers: strikethrough `~~…~~`, or a cue line (`delete` / `anti-example` / `ai slop` / `tier pile` / `exists to delete` / `do not ship` / `bad:`), plus annotation tables that only catalogue that quote
+  - Unlabeled blockquotes and scare-quote irony still count
+  - Prose around the mock quote still counts
+- Report `Delve Index: A# B# C# D# (pass|fail)` in the README proof footer (quotas exclude exempt mockery)
 - **Never use "The Problem / The Solution" framing** - it's lazy and cliched
 - **Enforce Patterns:**
   - Use **"The Hook"** (Pattern A) in the _Description_

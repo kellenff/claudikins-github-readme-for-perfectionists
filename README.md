@@ -41,7 +41,9 @@ Delve Index for shipping prose below: **A0 B0 C0 D0 (pass)**.
 
 ## The graded lexicon
 
-Flat zero-tolerance lists make prose sound machine-cleaned. Pen-wielding counts hits in shipping prose only (not these tables, not strikethrough demos, not the Delve Index badge).
+Flat zero-tolerance lists make prose sound machine-cleaned. Pen-wielding counts hits in shipping prose only.
+
+**Exempt from budgets:** the Tier A-D tables themselves; Delve Index badge/quota chrome; and *marked* mockery (strikethrough `~~…~~`, or a cue like `delete` / `anti-example` / `ai slop` / `tier pile` on the line above, plus annotation tables that only catalogue that quote). Unlabeled quotes still count. Your own sentences next to the joke still count.
 
 | Tier | Budget | Fail when |
 | --- | --- | --- |

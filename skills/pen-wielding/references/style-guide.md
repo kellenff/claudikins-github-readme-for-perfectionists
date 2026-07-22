@@ -6,8 +6,52 @@
 
 ## 1. The Anti-Cliché Lexicon (GRADED)
 
-Flat zero-tolerance lists make prose sound scrubbed, not human. Use **tiers with budgets**. Count token hits in *shipping prose* only (exclude the lexicon tables themselves, intentional strikethrough demos, and badge labels that name the metric).
+Flat zero-tolerance lists make prose sound scrubbed, not human. Use **tiers with budgets**. Count token hits in *shipping prose* only.
 
+### What counts as shipping prose
+
+**Count** ordinary narrative, headings (except lexicon headings), feature bullets, and unlabeled quotes.
+
+**Do not count** (still write them carefully; abuse voids the exemption):
+
+| Exemption | How to mark it | Why |
+| --------- | -------------- | --- |
+| Lexicon tables | The Tier A–D tables themselves | Defining the rule is not breaking it |
+| Delve Index chrome | Badge labels, `Delve Index: A# B#…` quota lines | Metric names the forbidden word |
+| **Mockery / anti-examples** | See below | You must be able to show the disease |
+
+### Mockery exemption (relaxed budgets)
+
+When the point of a passage is to *mock or exhibit* AI slop, lexicon hits inside that passage **do not consume Tier A–D budgets**. The surrounding explanation still does.
+
+**Allowed markers** (any one is enough; prefer two when the quote is long):
+
+1. **Strikethrough:** `~~…~~` on the slop itself
+2. **Labeled cue** in the same block or the immediately preceding line, matching (case-insensitive): `delete`, `anti-example`, `ai slop`, `tier pile`, `exists to delete`, `do not ship`, `bad:`, `before (delete)`
+3. **Annotation table** that only catalogues tokens from an already-exempt mock quote (e.g. "Strike fragment → Tier")
+
+**Not exempt:**
+
+- Unlabeled `>` blockquotes
+- Testimonials, epigraphs, or "someone said delve" used as positive voice
+- Inline scare-quotes in your own claims (`this "seamless" installer`) - rewrite instead
+- A whole section of filler framed as irony with no marker
+
+**Budget still applies** to your own prose next to the mock quote ("What ships:", Hook sentences, Quick Start). Mockery is a scalpel, not a tarp.
+
+**Example shape:**
+
+```markdown
+**Tier pile (delete):**
+
+> ~~It's important to note that this seamless library delves into…~~
+
+| Strike fragment | Tier |
+| --- | --- |
+| delve / seamless / it's important to note | A |
+```
+
+Those hits are exempt. The sentence after ("What ships: …") is not.
 ### Budget rules
 
 | Tier | Budget (total hits across the tier) | If over budget |
