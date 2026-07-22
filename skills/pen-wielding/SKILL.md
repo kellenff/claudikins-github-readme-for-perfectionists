@@ -52,7 +52,11 @@ Read the governance files to establish the form:
   - Markers: strikethrough `~~…~~`, or a cue line (`delete` / `anti-example` / `ai slop` / `tier pile` / `exists to delete` / `do not ship` / `bad:`), plus annotation tables that only catalogue that quote
   - Unlabeled blockquotes and scare-quote irony still count
   - Prose around the mock quote still counts
-- Report `Delve Index: A# B# C# D# (pass|fail)` in the README proof footer (quotas exclude exempt mockery)
+- **Proper-noun exemption:** real product/company/person/place/work titles and code identifiers that contain a lexicon token do not consume budgets
+  - Prefer canonical casing, links, backticks, or a type noun on first mention
+  - Generic reuse next to the name still counts (`Foster Inc.` exempt; `foster collaboration` counts)
+  - Fake brands invented to smuggle filler are not exempt
+- Report `Delve Index: A# B# C# D# (pass|fail)` in the README proof footer (quotas exclude exempt mockery and proper nouns)
 - **Never use "The Problem / The Solution" framing** - it's lazy and cliched
 - **Enforce Patterns:**
   - Use **"The Hook"** (Pattern A) in the _Description_

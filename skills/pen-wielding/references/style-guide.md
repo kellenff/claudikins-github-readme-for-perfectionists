@@ -19,6 +19,7 @@ Flat zero-tolerance lists make prose sound scrubbed, not human. Use **tiers with
 | Lexicon tables | The Tier A–D tables themselves | Defining the rule is not breaking it |
 | Delve Index chrome | Badge labels, `Delve Index: A# B#…` quota lines | Metric names the forbidden word |
 | **Mockery / anti-examples** | See below | You must be able to show the disease |
+| **Proper nouns** | See below | Names are identity, not filler |
 
 ### Mockery exemption (relaxed budgets)
 
@@ -52,6 +53,30 @@ When the point of a passage is to *mock or exhibit* AI slop, lexicon hits inside
 ```
 
 Those hits are exempt. The sentence after ("What ships: …") is not.
+
+### Proper-noun exemption
+
+A lexicon token that is part of a **real proper noun** does not consume budgets. Rename nothing just to dodge the list.
+
+**Treat as proper nouns when the hit is:**
+
+- A product, company, project, library, or tool name (`Seamless.AI`, `Delve` the analytics product, `Embark Studios`)
+- A person, place, or organization name
+- A title of a work (book, paper, RFC, standard) cited as a name
+- A path, package id, class, or CLI flag that is an identifier (`@org/robust-sdk`, `--leverage-cache` only if that is the real flag)
+
+**How to keep the exemption honest:**
+
+- Prefer the canonical casing/punctuation of the name (`Seamless.AI`, not "our seamless AI")
+- On first mention, make the name-hood obvious: link it, backtick an identifier, or pair it with a type noun (`the Embark Studios engine`)
+- If you use the bare token as a normal adjective/verb after naming (`Seamless.AI is seamless`), the second hit **counts**
+
+**Not exempt:**
+
+- Generic reuse of the word after the name (`we foster collaboration with Foster Inc.` - "Foster Inc." exempt; "foster collaboration" counts)
+- Fake brands invented to smuggle filler (`install DelveHelper to delve deeper`)
+- Lowercased common-noun uses that merely coincide with a brand
+
 ### Budget rules
 
 | Tier | Budget (total hits across the tier) | If over budget |
