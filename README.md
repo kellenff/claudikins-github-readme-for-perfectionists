@@ -12,15 +12,15 @@
 
 # Github Readme for Perfectionists
 
-Blank-page READMEs stall. AI READMEs smell. This Claude Code plugin hard-gates five research stages, then grades filler into Tier A-D budgets so the final prose stays specific without sounding scrubbed sterile.
+Blank-page READMEs stall. AI READMEs smell. This Claude Code plugin hard-gates five research stages, then grades filler on Tier A-D budgets so the draft stays specific without sounding machine-scrubbed.
 
 ## Proof this works (or does not)
 
-This README was rewritten by `/pen-wielding` on 2026-07-22 against the graded lexicon in `skills/pen-wielding/references/style-guide.md`. Upstream staging from the same-day GRFP run: deep-dive (file-heuristic), crystal-ball (content-level roadmap), brain-jam (`CAST=NO_KEYS` → Critique unavailable), think-tank (6 exemplars).
+This file is the output of `/pen-wielding` on 2026-07-22 (pass after the graded-lexicon cut). Staging from the same-day GRFP run: `Deep Dive` (file-heuristic), crystal-ball (content-level roadmap), brain-jam (`CAST=NO_KEYS` → Critique unavailable), think-tank (6 exemplars).
 
-Staging path: `.claude/grfp/`. Without Gemini/MiniMax keys, Stage 4 still wrote a Set List and later stages continued.
+Artifacts live under `.claude/grfp/`. Without Gemini/MiniMax credentials, Stage 4 still wrote a Set List and later stages continued.
 
-Delve Index for shipping prose below: **A0 B0 C0 D0 (pass)**.
+Delve Index for shipping prose: **A0 B0 C0 D0 (pass)**.
 
 ## Before and after
 
@@ -30,18 +30,18 @@ Delve Index for shipping prose below: **A0 B0 C0 D0 (pass)**.
 
 | Strike fragment | Tier |
 | --- | --- |
-| In today's digital age / it's important to note / delve / seamless / unleashing / plays a crucial role | **A** (budget 0) |
-| harnessing / multifaceted / pivotal | **B** (budget 0-1) |
-| _(none left once A/B cut)_ | **C** (budget ≤3) |
-| furthermore / ultimately / when it comes to / synergy / actionable | **C/D** (see graded tables) |
+| In today's digital age / it's important to note / delve / seamless / unleashing / plays a crucial role | **A** (0) |
+| harnessing / multifaceted / pivotal | **B** (0-1) |
+| furthermore / ultimately / when it comes to | **C** (≤3) |
+| synergy / actionable | **D** (≤8) |
+
+Those hits sit in marked mockery, so they do not spend budgets. The next sentence does.
 
 **What ships:**
 
-> This plugin writes READMEs. Tier A is a hard ban. Tier B allows one slip. Tier C allows a couple. Tier D caps soft adjectives and leftover ceremony at eight. Three sentence patterns force specifics. A third voice (when keys exist) attacks weak claims before you ship.
+> This plugin writes READMEs. Tier A is a hard ban. Tier B allows one slip. Tier C allows a couple. Tier D caps soft adjectives and leftover ceremony at eight. Full token lists stay in the style guide, not here. Three sentence patterns force specifics. A third voice (when credentials exist) attacks weak claims before you ship.
 
 ## The graded lexicon
-
-Flat zero-tolerance lists make prose sound machine-cleaned. Pen-wielding grades filler instead.
 
 | Tier | Budget | Fail when |
 | --- | --- | --- |
@@ -50,11 +50,11 @@ Flat zero-tolerance lists make prose sound machine-cleaned. Pen-wielding grades 
 | **C** | **≤3** | Count > 3 |
 | **D** | **≤8** | Count > 8 (soft warn > 5) |
 
-**Exempt:** marked mockery (`~~…~~` or a `delete` / `anti-example` / `ai slop` cue), proper nouns and real identifiers (`API key`, `*_KEY`, the `Deep Dive` stage title), Delve Index chrome, and the canonical lexicon tables themselves.
+**Exempt:** marked mockery (`~~…~~` or a `delete` / `anti-example` / `ai slop` cue), proper nouns and real identifiers (`API_KEY`, the `Deep Dive` stage title), Delve Index chrome, and the canonical lexicon tables.
 
-Famous Tier A examples: delve, tapestry, seamless, unleash, "it's important to note", "plays a crucial role", "whether you're a…", "as an AI".
+Famous Tier A tells: delve, tapestry, seamless, unleash, "it's important to note", "plays a crucial role", "whether you're a…", "as an AI".
 
-Full token lists, replacements, exemptions, and ripgrep audit recipes live in [`skills/pen-wielding/references/style-guide.md`](skills/pen-wielding/references/style-guide.md). Report format: `Delve Index: A# B# C# D# (pass|fail)`.
+Canonical lists, replacements, exemptions, and ripgrep recipes: [`skills/pen-wielding/references/style-guide.md`](skills/pen-wielding/references/style-guide.md). Report as `Delve Index: A# B# C# D# (pass|fail)`.
 
 ## Quick Start (the honest list)
 
@@ -69,7 +69,7 @@ Full token lists, replacements, exemptions, and ripgrep audit recipes live in [`
 ln -sf /path/to/chorus ~/.claude/skills/chorus   # skills-directory plugin symlink
 export GEMINI_API_KEY=your-gemini-key-here   # synth (preferred)
 export MINIMAX_API_KEY=your-minimax-key-here # pragmatist + critic (preferred)
-# Either key alone works - brain-jam falls back to a single-provider cast
+# Either variable alone works - brain-jam falls back to a single-provider cast
 
 # 4. Install Deno (Chorus runtime)
 curl -fsSL https://deno.land/install.sh | sh
@@ -78,11 +78,11 @@ curl -fsSL https://deno.land/install.sh | sh
 /claudikins-github-readme-for-perfectionists:grfp
 ```
 
-Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Stage 4 needs the Chorus symlink, Deno, and **at least one** of `GEMINI_API_KEY` or `MINIMAX_API_KEY`. Both keys give a cross-provider cast (Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic); a single key falls back to that provider for all voices. Deno is required - Chorus does not ship a standalone binary. Without keys, Stage 4 writes Critique unavailable and later stages still run.
+Step 3 is the easy-to-miss one. The `brain-jam` stage shells out to the Chorus CLI via Deno. Stage 4 needs the Chorus symlink, Deno, and **at least one** of `GEMINI_API_KEY` or `MINIMAX_API_KEY`. Both give a cross-provider cast (Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic); a single provider covers all voices. Deno is required - Chorus does not ship a standalone binary. Without credentials, Stage 4 writes Critique unavailable and later stages still run.
 
-Optional: install `claudikins-tool-executor` or enable `codebase-memory` MCP for graph-analysis tools (`search_graph`, `trace_path`, `get_architecture`) that improve `/deep-dive` and `/crystal-ball` on real codebases. Without either, those stages fall back to file-based heuristics.
+Optional: install `claudikins-tool-executor` or enable `codebase-memory` MCP for graph tools (`search_graph`, `trace_path`, `get_architecture`) that improve `/deep-dive` and `/crystal-ball` on real codebases. Without either, those stages fall back to file-based heuristics.
 
-No Exa API key or search plugin is required. `/think-tank` uses built-in `WebSearch` and `WebFetch` by default.
+No Exa credential or search plugin is required. `/think-tank` uses built-in `WebSearch` and `WebFetch` by default.
 
 ## The pipeline
 
@@ -116,11 +116,11 @@ flowchart LR
 
 ## The critic third voice (v3.1.0)
 
-Stage 3 runs a 3-voice dialogue: a Gemini 3.5 Flash synth and a MiniMax-M3 pragmatist debate the angle, then an argdown-grounded critic emits structured anti-steelman, undefended assumptions, and an argument map after each round. Two dialogue rounds by default. The critic's output reshapes the next round's speaker prompts. The synthesis surfaces ideas neither voice had alone.
+Stage 3 runs a 3-voice dialogue: a Gemini 3.5 Flash synth and a MiniMax-M3 pragmatist debate the angle, then an argdown-grounded critic emits structured anti-steelman, undefended assumptions, and an argument map after each round. Two dialogue rounds by default. The critic's output reshapes the next round's speaker prompts.
 
-Argdown is plain-text argument notation. `[Claim]:` states a thesis. `+` adds support. `-` raises an attack. The critic uses it the same way a linter reads an AST.
+Argdown is plain-text argument notation. `[Claim]:` states a thesis. `+` adds support. `-` raises an attack. The critic reads it the way a linter reads an AST.
 
-Example of what `brain-jam.md` looks like when the critic succeeds:
+Example when the critic succeeds:
 
 ````markdown
 ## Watch-Outs (anti-steelman per voice)
@@ -145,22 +145,22 @@ Example of what `brain-jam.md` looks like when the critic succeeds:
 **Defeated arguments (OUT):** Bloat
 ````
 
-When the critic fails (missing API keys, model timeout, JSON truncation, argdown parse error), the adapter renders Block 1 (Set List) only or PARTIAL blocks from surviving rounds and footnotes which rounds failed. The dialogue is never aborted for critic loss alone. This dogfood run hit `NO_KEYS` before any round started; Set List still shaped the draft.
+When the critic fails (missing credentials, model timeout, JSON truncation, argdown parse error), the adapter renders Block 1 (Set List) only or PARTIAL blocks from surviving rounds and footnotes the gaps. Critic loss alone does not abort the dialogue. This dogfood run hit `NO_KEYS` before any round started; Set List still shaped the draft.
 
 ## What pen-wielding enforces
 
-The writing stage applies four governance files plus a pre-write critique check:
+Four governance files plus a pre-write critique check:
 
-- **style-guide.md** - graded lexicon (A0 / B≤1 / C≤3 / D≤8), three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
-- **structural-templates.md** - section ordering by project type, results tables, do/don't patterns
-- **visual-engineering.md** - mermaid diagrams, ASCII progress bars, visual density floor of 1 per 300 words
-- **anti-patterns.md** - writing anti-patterns (passive voice, hedging, generic headers), research anti-patterns, quality checklist
-- **Step 3.5 (v3.1.0)** - scan `brain-jam.md`'s Watch-Outs, Undefended Assumptions, and Argument Map before writing. Be aware as you write. Substantiate the assumptions from `deep-dive.md` or cut the claim.
+- **style-guide.md** - graded lexicon (A0 / B≤1 / C≤3 / D≤8), Hook / Hammer / Trust Builder patterns, humanisation rules, spelling consistency
+- **structural-templates.md** - section order by project type, results tables, do/don't patterns
+- **visual-engineering.md** - mermaid, ASCII progress bars, visual density floor of 1 per 300 words
+- **anti-patterns.md** - passive voice, hedging, generic headers, research anti-patterns, quality checklist
+- **Step 3.5 (v3.1.0)** - scan `brain-jam.md` Watch-Outs, Undefended Assumptions, and Argument Map before writing. Substantiate assumptions from `deep-dive.md` or cut the claim.
 
 <details>
 <summary><strong>The three sentence patterns</strong></summary>
 
-You must vary between these three. Mixing them is the whole job.
+Vary between these three. Mixing them is the job.
 
 ### Pattern A: The Hook (Pain plus Solution)
 
@@ -209,12 +209,12 @@ Write TO readers, not AT them.
 | Shipped | 5-stage pipeline with hard gates between stages |
 | Shipped | Chorus brain-jam engine (replaced m2-brainstorm in v3.0.0) |
 | Shipped | Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic (v3.1.0) |
-| Shipped | Single-provider fallbacks when only one API key is set |
+| Shipped | Single-provider fallbacks when only one provider credential is set |
 | Shipped | 2-round dialogue synthesis (`--max-rounds 2`) |
-| Shipped | Graded Anti-Slop lexicon (Tier A-D budgets) |
+| Shipped | Graded Anti-Slop lexicon (Tier A-D) with mockery + proper-noun exemptions |
 | Draft | Cast recipe at `skills/brain-jam/recipes/grfp-readme.json` |
-| Missing | CI workflows that enforce Delve Index quotas |
-| Missing | Offline / no-key brain-jam path beyond Critique unavailable |
+| Missing | CI that enforces Delve Index quotas |
+| Missing | Offline brain-jam path beyond Critique unavailable |
 
 ## Quality targets
 
@@ -230,17 +230,17 @@ Write TO readers, not AT them.
 
 - **You want full creative control.** The pipeline enforces structure. It will fight you.
 - **Your project is trivial.** A 20-line script does not need a 5-phase pipeline.
-- **You need speed.** Each phase takes minutes. The brain-jam stage alone is 3-9 minutes wallclock with critique on.
+- **You need speed.** Each phase takes minutes. Brain-jam alone is often 3-9 minutes wallclock with critique on.
 - **You hate opinionated tools.** The opinions are baked in.
-- **You want a general-purpose AI conversation.** Ask Claude or GPT directly. The plugin's value is exit criteria, not chat fluency.
+- **You want a general-purpose AI conversation.** Ask the model directly. This plugin sells exit criteria, not chat fluency.
 
 ## Requirements
 
 - Claude Code 1.0 or later
 - Chorus plugin symlinked at `~/.claude/skills/chorus` (required for `/brain-jam`)
 - Deno (required - Chorus launcher shells out to `deno run`)
-- At least one of `GEMINI_API_KEY` or `MINIMAX_API_KEY` in environment or `~/.claude/skills/chorus/.env` (both preferred)
-- `claudikins-tool-executor` plugin or `codebase-memory` MCP (optional; enables graph-analysis tools for `/deep-dive` and `/crystal-ball`)
+- At least one of `GEMINI_API_KEY` or `MINIMAX_API_KEY` in the environment or `~/.claude/skills/chorus/.env` (both preferred)
+- `claudikins-tool-executor` plugin or `codebase-memory` MCP (optional; graph tools for `/deep-dive` and `/crystal-ball`)
 
 ## License
 
@@ -248,4 +248,4 @@ Write TO readers, not AT them.
 
 ---
 
-_Delve Index: A0 B0 C0 D0 (pass). Pen-wielding rerun: 2026-07-22 (graded lexicon surfaced). Prior stages: deep-dive (file-heuristic), crystal-ball (content-level), brain-jam (NO_KEYS), think-tank (WebSearch)._
+_Delve Index: A0 B0 C0 D0 (pass). Pen-wielding pass: 2026-07-22 (slim graded lexicon + exemptions). Prior stages: Deep Dive (file-heuristic), crystal-ball (content-level), brain-jam (NO_KEYS), think-tank (WebSearch)._
