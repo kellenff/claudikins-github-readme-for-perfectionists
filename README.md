@@ -7,30 +7,125 @@
   <a href="https://github.com/anthropics/claude-code"><img src="https://img.shields.io/badge/Claude_Code-Plugin-5A67D8?style=flat-square" alt="Claude Code Plugin"></a>
   <img src="https://img.shields.io/badge/version-3.1.0-blue?style=flat-square" alt="Version 3.1.0">
   <img src="https://img.shields.io/badge/Critic_Voice-Always--on-9F7AEA?style=flat-square" alt="Critic Voice: Always-on">
-  <img src="https://img.shields.io/badge/Delve_Index-0%25-brightgreen?style=flat-square" alt="0% Delve Index">
+  <img src="https://img.shields.io/badge/Delve_Index-A0_B≤1_C≤3_D≤5-brightgreen?style=flat-square" alt="Delve Index graded budgets">
 </p>
 
 # Github Readme for Perfectionists
 
-ESLint for prose. A Claude Code plugin that treats "delve" as a syntax error and will not let you skip to the final draft until five staged artifacts exist.
+Blank-page READMEs stall. AI READMEs smell. This Claude Code plugin hard-gates five research stages, then grades filler into Tier A-D budgets so the final prose stays specific without sounding scrubbed sterile.
 
 ## Proof this works (or does not)
 
-This README was written by running the plugin's own pipeline on this repository on 2026-07-22. The five stages produced: deep-dive (Reality Report, file-heuristic fallback), crystal-ball (roadmap candidates across performance, debt, features, security), brain-jam (Set List only: Chorus resolved but `GEMINI_API_KEY` / `MINIMAX_API_KEY` were unset, so the critic did not run), think-tank (6 exemplars scored), pen-wielding (this file).
+This README was rewritten by `/pen-wielding` on 2026-07-22 against the graded lexicon in `skills/pen-wielding/references/style-guide.md`. Upstream staging from the same-day GRFP run: deep-dive (file-heuristic), crystal-ball (content-level roadmap), brain-jam (`CAST=NO_KEYS` → Critique unavailable), think-tank (6 exemplars).
 
-Staging lives under `.claude/grfp/`. Brain-jam recorded `CAST=NO_KEYS` and continued with Critique unavailable. That is the documented non-terminating path when Stage 4 cannot call a provider.
+Staging path: `.claude/grfp/`. Without Gemini/MiniMax keys, Stage 4 still wrote a Set List and later stages continued.
 
-Banned-word quota in the source above: Delve Index A0 B0 C0 D0 (pass).
+Delve Index for shipping prose below: **A0 B0 C0 D0 (pass)**.
 
 ## Before and after
 
-The kind of sentence this plugin exists to delete:
+**Tier pile (delete):**
 
-> ~~It's important to note that this library provides a seamless way to delve into documentation generation, unleashing the full potential of your README workflow while harnessing a multifaceted, pivotal approach that plays a crucial role in shaping outcomes.~~
+> ~~In today's digital age, it's important to note that this library provides a seamless way to delve into documentation, unleashing potential while harnessing a multifaceted, pivotal approach that plays a crucial role - and furthermore, ultimately, when it comes to READMEs, the synergy is actionable.~~
 
-The kind of sentence this plugin ships:
+| Strike fragment | Tier |
+| --- | --- |
+| In today's digital age / it's important to note / delve / seamless / unleashing / plays a crucial role | **A** (budget 0) |
+| harnessing / multifaceted / pivotal | **B** (budget 0-1) |
+| _(none left once A/B cut)_ | **C** (budget ≤3) |
+| furthermore / ultimately / when it comes to / synergy / actionable | **D** (budget ≤5) |
 
-> This plugin generates README files. It grades filler into Tier A–D budgets (hard ban / 0–1 / a couple / texture cap), enforces three sentence patterns that require specifics, and runs a third voice that flags weak claims the writer cannot see.
+**What ships:**
+
+> This plugin writes READMEs. Tier A is a hard ban. Tier B allows one slip. Tier C allows a couple. Tier D caps connective texture at five. Three sentence patterns force specifics. A third voice (when keys exist) attacks weak claims before you ship.
+
+## The graded lexicon
+
+Flat zero-tolerance lists make prose sound machine-cleaned. Pen-wielding counts hits in shipping prose only (not these tables, not strikethrough demos, not the Delve Index badge).
+
+| Tier | Budget | Fail when |
+| --- | --- | --- |
+| **A** | **0** | Any hit |
+| **B** | **0-1** | Second hit |
+| **C** | **≤3** | Fourth hit |
+| **D** | **≤5** | Sixth hit |
+
+Canonical source: `skills/pen-wielding/references/style-guide.md`. Report format: `Delve Index: A# B# C# D# (pass|fail)`.
+
+### Tier A - hard ban (0)
+
+| Word | Replacement |
+| --- | --- |
+| Delve | Analyse, Check, Query |
+| Tapestry | System, Network, Stack |
+| Seamless | Compatible, Integrated |
+| Unleash | Run, Execute, Enable |
+| Elevate | Improve (with a metric) |
+| Landscape | Delete the sentence |
+| Testament | Proof, Example |
+| Spearhead | Lead, Direct |
+| Game-changer | Solves [specific problem] |
+| Cutting-edge | Modern, Current |
+| Empower | Allow, Enable, Let |
+| It's important to note / It's worth noting | Delete; write the claim |
+| Plays a crucial role | Does X / Causes Y / Controls Z |
+| In today's … world/age | Delete the sentence |
+| Embark / embark on a journey | Start, Begin, Run |
+
+### Tier B - prefer zero (0-1)
+
+| Word | Replacement |
+| --- | --- |
+| Foster | Encourage, Allow |
+| Robust | Fault-tolerant, Atomic |
+| Navigating / navigate the complexities | Using, Working with |
+| Leverage | Use, Apply, Employ |
+| Harness | Use, Apply, Run |
+| Showcase | Show, Demonstrate, List |
+| Realm | Area, Domain, Topic |
+| Utilize | Use |
+| Unlock | Enable, Open, Expose |
+| Holistic | End-to-end, Whole-system, Across X |
+| Pivotal | Key, Central, Required |
+| Multifaceted | Complex, Varied, Has N parts |
+| Underscore | Show, Prove, Make clear |
+| Load-bearing | Critical, Essential, Required, Core |
+| Reality check | Verify, Confirm, Check against [facts] |
+| Spine | Core, Backbone, Main path, Structure |
+| Substrate | Base layer, Foundation, Underlying layer |
+
+### Tier C - a couple OK (≤3)
+
+| Word | Replacement |
+| --- | --- |
+| Comprehensive | Full, Complete, Covers X/Y/Z |
+| Nuanced | Specific, Precise, Distinguish X from Y |
+| Intricate / intricacies | Complex, Detailed, Nested |
+| Meticulous | Careful, Exact, Precise |
+| Bolster | Strengthen, Support, Improve |
+| Myriad | Many, Several, N |
+| Crucial (standalone) | Required, Blocking, Determines X |
+| Streamline | Simplify, Cut steps, Automate |
+| Innovative / groundbreaking / transformative | New, First to…, Changes X by Y |
+| Notably / Importantly (openers) | Delete opener; start with the claim |
+| Dive deep / dive deeper | Inspect, Trace, Read |
+
+### Tier D - texture budget (≤5)
+
+| Word | Replacement |
+| --- | --- |
+| Moreover / Furthermore / Additionally (sentence-initial) | Also, And, or start next sentence |
+| Ultimately / In conclusion / In summary | State the claim; end |
+| When it comes to | Name the subject |
+| At the end of the day | Delete |
+| That being said | But, Still |
+| Ensuring / ensures (padding) | Concrete verb for the action |
+| Highlights (padding verb) | Show, List, Point out |
+| Synergy / paradigm | Name the concrete interaction |
+| Actionable / best practices | Specific next step |
+| Double-edged sword | Name both sides |
+| Vibrant / dynamic / bustling | Concrete detail or metric |
+| Boast (meaning "has") | Has, Includes |
 
 ## Quick Start (the honest list)
 
@@ -70,7 +165,7 @@ Five sequential stages. Each writes a staging file under `.claude/grfp/`. Later 
 | 2 | Crystal Ball | `:crystal-ball` | `.claude/grfp/crystal-ball.md` | Roadmap Candidates tables |
 | 3 | Brain Jam | `:brain-jam` | `.claude/grfp/brain-jam.md` | Three angles + critic blocks (when available) |
 | 4 | Think Tank | `:think-tank` | `.claude/grfp/think-tank.md` | Exemplar scores + structural blueprint |
-| 5 | Pen Wielding | `:pen-wielding` | `README.md` | Final prose passes Anti-Slop governance |
+| 5 | Pen Wielding | `:pen-wielding` | `README.md` | Graded lexicon quotas + sentence patterns pass |
 
 You are done when stage 5 writes the file, not when you feel ready.
 
@@ -87,7 +182,7 @@ flowchart LR
     B -.- B1["Future: roadmap, tech debt"]
     C -.- C1["Voice: Gemini synth + MiniMax pragmatist (2 rounds)"]
     D -.- D1["Research: exemplar READMEs"]
-    E -.- E1["Output: README.md"]
+    E -.- E1["Output: README.md + Delve Index A/B/C/D"]
 ```
 
 ## The critic third voice (v3.1.0)
@@ -127,7 +222,7 @@ When the critic fails (missing API keys, model timeout, JSON truncation, argdown
 
 The writing stage applies four governance files plus a pre-write critique check:
 
-- **style-guide.md** - graded Anti-Slop lexicon (Tier A–D budgets), three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
+- **style-guide.md** - graded lexicon (A0 / B≤1 / C≤3 / D≤5), three sentence patterns (Hook / Hammer / Trust Builder), humanisation rules, spelling consistency
 - **structural-templates.md** - section ordering by project type, results tables, do/don't patterns
 - **visual-engineering.md** - mermaid diagrams, ASCII progress bars, visual density floor of 1 per 300 words
 - **anti-patterns.md** - writing anti-patterns (passive voice, hedging, generic headers), research anti-patterns, quality checklist
@@ -178,94 +273,6 @@ Write TO readers, not AT them.
 
 </details>
 
-## The graded lexicon
-
-Flat zero-tolerance lists scrub texture until prose sounds machine-cleaned. Hits are counted in shipping prose only (not this table, not strikethrough demos, not the Delve Index badge).
-
-| Tier | Budget | Rule |
-| --- | --- | --- |
-| **A** | **0** | Hard fail. Rewrite. |
-| **B** | **0–1** | Prefer zero; a second hit fails. |
-| **C** | **≤3** | A couple is fine; a fourth fails. |
-| **D** | **≤5** | Texture cap; cut ceremony first. |
-
-### Tier A — hard ban (0)
-
-| Word | Replacement |
-| --- | --- |
-| Delve | Analyse, Check, Query |
-| Tapestry | System, Network, Stack |
-| Seamless | Compatible, Integrated |
-| Unleash | Run, Execute, Enable |
-| Elevate | Improve (with a metric) |
-| Landscape | Delete the sentence |
-| Testament | Proof, Example |
-| Spearhead | Lead, Direct |
-| Game-changer | Solves [specific problem] |
-| Cutting-edge | Modern, Current |
-| Empower | Allow, Enable, Let |
-| It's important to note / It's worth noting | Delete; write the claim |
-| Plays a crucial role | Does X / Causes Y / Controls Z |
-| In today's … world/age | Delete the sentence |
-| Embark / embark on a journey | Start, Begin, Run |
-
-### Tier B — prefer zero (0–1)
-
-| Word | Replacement |
-| --- | --- |
-| Foster | Encourage, Allow |
-| Robust | Fault-tolerant, Atomic |
-| Navigating / navigate the complexities | Using, Working with |
-| Leverage | Use, Apply, Employ |
-| Harness | Use, Apply, Run |
-| Showcase | Show, Demonstrate, List |
-| Realm | Area, Domain, Topic |
-| Utilize | Use |
-| Unlock | Enable, Open, Expose |
-| Holistic | End-to-end, Whole-system, Across X |
-| Pivotal | Key, Central, Required |
-| Multifaceted | Complex, Varied, Has N parts |
-| Underscore | Show, Prove, Make clear |
-| Load-bearing | Critical, Essential, Required, Core |
-| Reality check | Verify, Confirm, Check against [facts] |
-| Spine | Core, Backbone, Main path, Structure |
-| Substrate | Base layer, Foundation, Underlying layer |
-
-### Tier C — a couple OK (≤3)
-
-| Word | Replacement |
-| --- | --- |
-| Comprehensive | Full, Complete, Covers X/Y/Z |
-| Nuanced | Specific, Precise, Distinguish X from Y |
-| Intricate / intricacies | Complex, Detailed, Nested |
-| Meticulous | Careful, Exact, Precise |
-| Bolster | Strengthen, Support, Improve |
-| Myriad | Many, Several, N |
-| Crucial (standalone) | Required, Blocking, Determines X |
-| Streamline | Simplify, Cut steps, Automate |
-| Innovative / groundbreaking / transformative | New, First to…, Changes X by Y |
-| Notably / Importantly (openers) | Delete opener; start with the claim |
-| Dive deep / dive deeper | Inspect, Trace, Read |
-
-### Tier D — texture budget (≤5)
-
-| Word | Replacement |
-| --- | --- |
-| Moreover / Furthermore / Additionally (sentence-initial) | Also, And, or start next sentence |
-| Ultimately / In conclusion / In summary | State the claim; end |
-| When it comes to | Name the subject |
-| At the end of the day | Delete |
-| That being said | But, Still |
-| Ensuring / ensures (padding) | Concrete verb for the action |
-| Highlights (padding verb) | Show, List, Point out |
-| Synergy / paradigm | Name the concrete interaction |
-| Actionable / best practices | Specific next step |
-| Double-edged sword | Name both sides |
-| Vibrant / dynamic / bustling | Concrete detail or metric |
-| Boast (meaning "has") | Has, Includes |
-
-Over budget on any tier fails the README. Report `Delve Index: A# B# C# D# (pass|fail)`.
-
 ## State of the project (v3.1.0)
 
 | Status | Item |
@@ -275,9 +282,9 @@ Over budget on any tier fails the README. Report `Delve Index: A# B# C# D# (pass
 | Shipped | Gemini 3.5 Flash synth + MiniMax-M3 pragmatist/critic (v3.1.0) |
 | Shipped | Single-provider fallbacks when only one API key is set |
 | Shipped | 2-round dialogue synthesis (`--max-rounds 2`) |
-| Shipped | Graded Anti-Slop lexicon (Tier A–D budgets; this branch) |
+| Shipped | Graded Anti-Slop lexicon (Tier A-D budgets) |
 | Draft | Cast recipe at `skills/brain-jam/recipes/grfp-readme.json` |
-| Missing | CI workflows (no `.github/workflows/`) |
+| Missing | CI workflows that enforce Delve Index quotas |
 | Missing | Offline / no-key brain-jam path beyond Critique unavailable |
 
 ## Quality targets
@@ -312,4 +319,4 @@ Over budget on any tier fails the README. Report `Delve Index: A# B# C# D# (pass
 
 ---
 
-_Delve Index of this README: A0 B0 C0 D0 (pass). Pipeline run: 2026-07-22. Stages: deep-dive (file-heuristic), crystal-ball (content-level), brain-jam (NO_KEYS / Critique unavailable), think-tank (WebSearch), pen-wielding (graded lexicon A–D)._
+_Delve Index: A0 B0 C0 D0 (pass). Pen-wielding rerun: 2026-07-22 (graded lexicon surfaced). Prior stages: deep-dive (file-heuristic), crystal-ball (content-level), brain-jam (NO_KEYS), think-tank (WebSearch)._
