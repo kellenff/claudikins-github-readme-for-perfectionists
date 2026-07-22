@@ -41,9 +41,7 @@ Delve Index for shipping prose below: **A0 B0 C0 D0 (pass)**.
 
 ## The graded lexicon
 
-Flat zero-tolerance lists make prose sound machine-cleaned. Pen-wielding counts hits in shipping prose only.
-
-**Exempt from budgets:** the Tier A-D tables themselves; Delve Index badge/quota chrome; *marked* mockery (strikethrough `~~…~~`, or a cue like `delete` / `anti-example` / `ai slop` / `tier pile` on the line above, plus annotation tables that only catalogue that quote); and **proper nouns** (real product, company, person, place, work title, or code identifier that happens to contain a lexicon token - prefer canonical casing/link/backticks; generic reuse next to the name still counts). Also skip `API key` / `*_KEY` env names and the `Deep Dive` stage title when they are identifiers. Unlabeled quotes still count. Your own filler sentences next to a joke or a brand name still count.
+Flat zero-tolerance lists make prose sound machine-cleaned. Pen-wielding grades filler instead.
 
 | Tier | Budget | Fail when |
 | --- | --- | --- |
@@ -52,106 +50,11 @@ Flat zero-tolerance lists make prose sound machine-cleaned. Pen-wielding counts 
 | **C** | **≤3** | Count > 3 |
 | **D** | **≤8** | Count > 8 (soft warn > 5) |
 
-Canonical source: `skills/pen-wielding/references/style-guide.md` (includes ripgrep audit recipes). Report format: `Delve Index: A# B# C# D# (pass|fail)`.
+**Exempt:** marked mockery (`~~…~~` or a `delete` / `anti-example` / `ai slop` cue), proper nouns and real identifiers (`API key`, `*_KEY`, the `Deep Dive` stage title), Delve Index chrome, and the canonical lexicon tables themselves.
 
-### Tier A - hard ban (0)
+Famous Tier A examples: delve, tapestry, seamless, unleash, "it's important to note", "plays a crucial role", "whether you're a…", "as an AI".
 
-| Word | Replacement |
-| --- | --- |
-| Delve | Analyse, Check, Query |
-| Tapestry | System, Network, Stack |
-| Seamless | Compatible, Integrated |
-| Unleash | Run, Execute, Enable |
-| Elevate | Improve (with a metric) |
-| Landscape | Delete the sentence |
-| Testament | Proof, Example |
-| Spearhead | Lead, Direct |
-| Game-changer | Solves [specific problem] |
-| Cutting-edge | Modern, Current |
-| Empower | Allow, Enable, Let |
-| It's important to note / It's worth noting / remember that it's essential | Delete; write the claim |
-| Plays a crucial role | Does X / Causes Y / Controls Z |
-| In today's … world/age / fast-paced world / digital age | Delete the sentence |
-| Embark / embark on a/this journey | Start, Begin, Run |
-| Unlock the secrets/power/potential | Enable X; expose Y; show Z |
-| Deep dive / let's dive / dive deep(er) | Inspect, Trace, Read |
-| Possibilities are endless / only time will tell / look no further | Delete; state the limit or next step |
-| Whether you're a … | Name one audience |
-| Here are N (listicle opener) | Lead with the first item or a claim |
-| As an AI | Delete |
-
-### Tier B - prefer zero (0-1)
-
-| Word | Replacement |
-| --- | --- |
-| Foster | Encourage, Allow |
-| Harness | Use, Apply, Run |
-| Showcase / showcasing | Show, Demonstrate, List |
-| Realm | Area, Domain, Topic |
-| Navigate / navigating | Using, Working with |
-| Underscore / underscoring | Show, Prove, Make clear |
-| Pivotal | Key, Central, Required |
-| Meticulous | Careful, Exact, Precise |
-| Boast (meaning "has") | Has, Includes |
-| Garner | Get, Earn, Draw |
-| Beacon | Signal, Guide, Example |
-| Nestled | In, Located in |
-| Cornerstone | Core, Basis, Required piece |
-| Crucial role / vital role | Does X / Controls Z |
-| Shed light / pave the way | Explain; enable; unblock |
-| More than just / isn't just / not only | Say the stronger claim directly |
-| One thing is clear / at its core / in essence | State the claim |
-| Key takeaway / picture this | State the takeaway; describe the scene |
-| Holistic | End-to-end, Whole-system, Across X |
-| Multifaceted | Complex, Varied, Has N parts |
-| Unlock (bare verb) | Enable, Open, Expose |
-| Load-bearing | Critical, Essential, Required, Core |
-| Reality check | Verify, Confirm, Check against [facts] |
-| Spine | Core, Backbone, Main path, Structure |
-| Substrate | Base layer, Foundation, Underlying layer |
-
-### Tier C - a couple OK (≤3)
-
-| Word | Replacement |
-| --- | --- |
-| Crucial (standalone) | Required, Blocking, Determines X |
-| Comprehensive | Full, Complete, Covers X/Y/Z |
-| Robust | Fault-tolerant, Atomic |
-| Leverage | Use, Apply, Employ |
-| Utilize | Use |
-| Enhance / enhancing | Improve X by Y |
-| State-of-the-art | Current; cite the technique |
-| Vibrant | Concrete detail or metric |
-| Intricate / intricacies | Complex, Detailed, Nested |
-| Nuanced | Specific, Precise, Distinguish X from Y |
-| Streamline | Simplify, Cut steps, Automate |
-| Facilitate | Help, Run, Allow |
-| Bolster | Strengthen, Support, Improve |
-| Myriad | Many, Several, N |
-| Innovative / groundbreaking / transformative | New, First to…, Changes X by Y |
-| Notably / Importantly (openers) | Delete opener; start with the claim |
-| Furthermore / Moreover / Additionally (sentence-initial) | Also, And, or start next sentence |
-| Worth noting | Delete; write the claim |
-| When it comes to | Name the subject |
-| In conclusion / to sum up / in summary / ultimately | State the claim; end |
-
-### Tier D - soft texture (≤8)
-
-| Word | Replacement |
-| --- | --- |
-| Important / essential / key (adjective) | Required, Blocking, or drop |
-| Powerful / great | Name the capability or metric |
-| Simply / easily | Steps; constraints; failure modes |
-| Efficient / flexible / scalable / intuitive | Cite cost, axis, or evidence |
-| Modern | Year, standard, or dependency floor |
-| Various / wide range | List N items or say "several" |
-| At the end of the day / that being said | Delete / But, Still |
-| Ensuring / ensures (padding) | Concrete verb for the action |
-| Highlights (padding verb) | Show, List, Point out |
-| Synergy / paradigm | Name the concrete interaction |
-| Actionable / best practices | Specific next step |
-| Double-edged sword | Name both sides |
-| Dynamic / bustling | Concrete detail or metric |
+Full token lists, replacements, exemptions, and ripgrep audit recipes live in [`skills/pen-wielding/references/style-guide.md`](skills/pen-wielding/references/style-guide.md). Report format: `Delve Index: A# B# C# D# (pass|fail)`.
 
 ## Quick Start (the honest list)
 
@@ -321,7 +224,7 @@ Write TO readers, not AT them.
 | Time to Joy | 5 commands (honest count, see Quick Start) |
 | Visual density | 1 per 300 words |
 | Badge count | 5-7 |
-| Delve Index | A0; B≤1; C≤3; D≤5 |
+| Delve Index | A0; B≤1; C≤3; D≤8 |
 
 ## When NOT to use this
 
