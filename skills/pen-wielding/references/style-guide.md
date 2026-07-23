@@ -107,6 +107,7 @@ Classic memes, empty ceremony, and marketing that always reads as machine. Any h
 | **Game-changer** | "Hyperbole." | Solves [specific problem] |
 | **Cutting-edge** | "Meaningless hyperbole." | Modern, Current, 2025-compatible |
 | **Empower** | "Marketing fluff." | Allow, Enable, Let |
+| **Spine** | "Vague structural metaphor." | Core, Backbone, Main path, Structure |
 | **It's important to note** / **It's worth noting** / **remember that it's essential** | "Throat-clear before the claim." | _Delete; write the claim_ |
 | **Plays a crucial role** | "Formulaic importance padding." | Does X / Causes Y / Controls Z |
 | **In today's … world/age** / **fast-paced world** / **digital age** | "Empty opener." | _Delete the sentence_ |
@@ -147,7 +148,6 @@ Strong tells. Count > 1 is actionable.
 | **Unlock** (bare verb) | "Marketing twin of unleash." | Enable, Open, Expose |
 | **Load-bearing** | "Metaphor standing in for importance." | Critical, Essential, Required, Core |
 | **Reality check** | "Rhetorical pause with no content." | Verify, Confirm, Check against [facts] |
-| **Spine** | "Vague structural metaphor." | Core, Backbone, Main path, Structure |
 | **Substrate** | "Pseudo-technical filler." | Base layer, Foundation, Underlying layer |
 
 ### Tier C — A couple OK (budget ≤3)
@@ -160,6 +160,7 @@ Formal/ESL-overlap adjectives, verbs, and connectives. Flag when total > 3.
 | **Comprehensive** | "Vague completeness claim." | Full, Complete, Covers X/Y/Z |
 | **Robust** | "Vague filler." | Fault-tolerant, Atomic, Idempotent |
 | **Leverage** | "MBA speak." | Use, Apply, Employ |
+| **Ground** (stem match: `ground*`) | "Evidence-sounding language without named evidence." | Cite the source, measurement, or constraint |
 | **Utilize** | "Formal synonym for use." | Use |
 | **Enhance** / **enhancing** | "Improve with no metric." | Improve X by Y |
 | **State-of-the-art** | "Hyperbole twin of cutting-edge." | Current; cite the actual technique |
@@ -203,13 +204,13 @@ Run from the repo root. Raw counts include lexicon tables and mockery - subtract
 
 ```bash
 # Tier A: any hit is actionable (after exemptions)
-rg -ic "delve|tapestry|testament|fast-paced world|digital age|possibilities are endless|only time will tell|look no further|whether you'?re a|embark on (a|this) journey|unlock the (secrets|power|potential)|deep dive|let'?s dive|here are \d+|as an ai|remember that it'?s essential" README.md
+rg -ic "delve|tapestry|testament|spine|fast-paced world|digital age|possibilities are endless|only time will tell|look no further|whether you'?re a|embark on (a|this) journey|unlock the (secrets|power|potential)|deep dive|let'?s dive|here are \d+|as an ai|remember that it'?s essential" README.md
 
 # Tier B: count > 1 is actionable
 rg -io "landscape|realm|navigate|underscor|showcas|boast|meticulous|pivotal|garner|foster|elevate|unleash|harness|beacon|nestled|game-changer|cornerstone|crucial role|vital role|shed light|pave the way|more than just|isn'?t just|not only|one thing is clear|at its core|in essence|key takeaway|picture this" README.md | wc -l
 
 # Tier C: flag when total > 3
-rg -io "\bcrucial\b|comprehensive|\brobust\b|seamless|leverage|enhanc|cutting-edge|state-of-the-art|\bvibrant\b|intricat|nuanced|multifaceted|streamline|utilize|facilitate|^(furthermore|moreover|additionally),|worth noting|when it comes to|in conclusion|to sum up" README.md | wc -l
+rg -io "\bcrucial\b|comprehensive|\brobust\b|seamless|leverage|\bground\w*\b|enhanc|cutting-edge|state-of-the-art|\bvibrant\b|intricat|nuanced|multifaceted|streamline|utilize|facilitate|^(furthermore|moreover|additionally),|worth noting|when it comes to|in conclusion|to sum up" README.md | wc -l
 
 # Tier D: flag when total > 8 (soft warning > 5)
 rg -io "\bimportant\b|\bessential\b|\bkey\b|powerful|\bsimply\b|\beasily\b|efficient|flexible|scalable|\bmodern\b|intuitive|\bvarious\b|wide range|\bgreat\b" README.md | wc -l
